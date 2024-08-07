@@ -28,7 +28,7 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 20
 java {
     withSourcesJar()
     withJavadocJar()
@@ -64,10 +64,7 @@ publishing {
     }
 }
 
-wrapper {
-    gradleVersion = "7.3.3"
-    distributionType = Wrapper.DistributionType.ALL
-}
+
 
 wrapper {
     gradleVersion = "8.8"
