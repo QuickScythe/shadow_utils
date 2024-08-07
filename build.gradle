@@ -3,14 +3,10 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.quickscythe.QuickScythe'
+group = 'com.github.QuickScythe'
 version = '0.1.7-SNAPSHOT'
 
-sourceCompatibility = 1.8 // java 8
-targetCompatibility = 1.8
-
 repositories {
-//    jcenter()
 
     mavenCentral()
     maven {
@@ -21,12 +17,10 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
-    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    implementation 'com.github.jitpack:gradle-simple:1.0'
+    implementation("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
 }
 
 def targetJavaVersion = 21
@@ -57,3 +51,4 @@ processResources {
         expand props
     }
 }
+
