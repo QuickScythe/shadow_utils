@@ -83,9 +83,10 @@ public class UpdateCommand implements BasicCommand {
                 try {
                     Utils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
                     for(File file : Utils.getPlugin().getDataFolder().getParentFile().listFiles()){
-                        Utils.getLogger().log(file.getName());
+                        String name = file.getName();
+                        Utils.getLogger().log(name);
                         Utils.getLogger().log("Looking for starts with: " + plugin);
-                        if(file.getName().startsWith(plugin) && file.getName().equals(".jar")){
+                        if(name.startsWith(plugin)){
                             Utils.getLogger().log(Logger.LogLevel.INFO,"Found file!");
                             Files.deleteIfExists(file.toPath());
                             Utils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
