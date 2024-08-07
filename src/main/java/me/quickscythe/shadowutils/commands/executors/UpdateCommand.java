@@ -37,7 +37,6 @@ public class UpdateCommand implements BasicCommand {
                 for (int temp = 0; temp < jobs.getLength(); temp++) {
                     Node job = jobs.item(temp);
                     String context = ((Element) job).getElementsByTagName("name").item(0).getTextContent();
-                    System.out.println(context);
                     list.add(context);
                 }
             } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -58,7 +57,6 @@ public class UpdateCommand implements BasicCommand {
                     String context = ((Element) job).getElementsByTagName("fileName").item(0).getTextContent();
                     context = context.replaceAll(args[0] + "-", "");
                     context = context.replaceAll(".jar", "");
-                    System.out.println(context);
                     list.add(context);
                 }
             } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -81,18 +79,17 @@ public class UpdateCommand implements BasicCommand {
             InputStream in = Utils.downloadFile(url);
             if (in != null) {
                 try {
-                    Utils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
-                    for(File file : Utils.getPlugin().getDataFolder().getParentFile().listFiles()){
+
+                    for (File file : Utils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
-                        Utils.getLogger().log(name);
-                        Utils.getLogger().log("Looking for starts with: " + plugin);
-                        if(name.startsWith(plugin)){
-                            Utils.getLogger().log(Logger.LogLevel.INFO,"Found file!");
+                        if (name.startsWith(plugin)) {
+                            Utils.getLogger().log(Logger.LogLevel.INFO, "Found file!");
                             Files.deleteIfExists(file.toPath());
                             Utils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
                         }
                     }
                     Utils.saveStream(in, new FileOutputStream("plugins/" + filename));
+                    Utils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
                 } catch (FileNotFoundException e) {
                     Utils.getLogger().log(Logger.LogLevel.ERROR, e);
                 } catch (IOException e) {
