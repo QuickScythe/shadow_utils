@@ -10,8 +10,8 @@ sourceCompatibility = 1.8 // java 8
 targetCompatibility = 1.8
 
 repositories {
-    jcenter()
-    maven { url "https://jitpack.io" }
+//    jcenter()
+
     mavenCentral()
     maven {
         name = "papermc-repo"
@@ -21,14 +21,15 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'com.github.jitpack:gradle-simple:1.0'
 }
 
-def targetJavaVersion = 20
+def targetJavaVersion = 21
 java {
     withSourcesJar()
     withJavadocJar()
@@ -55,18 +56,4 @@ processResources {
     filesMatching('paper-plugin.yml') {
         expand props
     }
-}
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
-
-
-wrapper {
-    gradleVersion = "8.8"
-    distributionType = Wrapper.DistributionType.ALL
 }
