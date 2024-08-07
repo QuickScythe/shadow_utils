@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.github.QuickScythe'
-version = '0.1.7-SNAPSHOT'
+version = '0.1.8-SNAPSHOT'
 
 repositories {
 
@@ -52,4 +52,10 @@ processResources {
         expand props
     }
 }
-
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
