@@ -6,6 +6,9 @@ plugins {
 group = 'com.quickscythe.QuickScythe'
 version = '0.1.7-SNAPSHOT'
 
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
+
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
