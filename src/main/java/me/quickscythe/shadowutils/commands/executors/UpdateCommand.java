@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -84,13 +85,17 @@ public class UpdateCommand implements BasicCommand {
                     for(File file : Utils.getPlugin().getDataFolder().getParentFile().listFiles()){
                         Utils.getLogger().log(file.getName());
                         if(file.getName().startsWith(plugin) && file.getName().equals(".jar")){
-                            file.delete();
+                            Utils.getLogger().log("Found file!");
+                            Files.deleteIfExists(file.toPath());
                             Utils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
                         }
                     }
                     Utils.saveStream(in, new FileOutputStream("plugins/" + filename));
                 } catch (FileNotFoundException e) {
                     Utils.getLogger().log(Logger.LogLevel.ERROR, e);
+                } catch (IOException e) {
+                    Utils.getLogger().log(Logger.LogLevel.ERROR, "ERROR");
+                    throw new RuntimeException(e);
                 }
             } else {
                 Utils.getLogger().log(Logger.LogLevel.ERROR, "There was an error downloading " + filename, stack.getSender());
