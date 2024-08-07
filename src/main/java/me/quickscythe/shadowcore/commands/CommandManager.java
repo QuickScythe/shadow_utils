@@ -1,12 +1,12 @@
-package me.quickscythe.shadowutils.commands;
+package me.quickscythe.shadowcore.commands;
 
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import me.quickscythe.shadowutils.commands.executors.UpdateCommand;
-import me.quickscythe.shadowutils.utils.Utils;
+import me.quickscythe.shadowcore.commands.executors.UpdateCommand;
+import me.quickscythe.shadowcore.utils.Utils;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,7 +1,7 @@
-package me.quickscythe.shadowutils;
+package me.quickscythe.shadowcore;
 
-import me.quickscythe.shadowutils.commands.CommandManager;
-import me.quickscythe.shadowutils.utils.Utils;
+import me.quickscythe.shadowcore.commands.CommandManager;
+import me.quickscythe.shadowcore.utils.Utils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {

@@ -1,7 +1,6 @@
-package me.quickscythe.shadowutils.utils;
+package me.quickscythe.shadowcore.utils;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

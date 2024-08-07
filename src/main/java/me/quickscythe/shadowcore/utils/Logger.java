@@ -1,10 +1,8 @@
-package me.quickscythe.shadowutils.utils;
+package me.quickscythe.shadowcore.utils;
 
 
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.logging.Level;
 
 public class Logger {
 

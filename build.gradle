@@ -6,6 +6,8 @@ group = 'me.quickscythe'
 version = '0.1.5-SNAPSHOT'
 
 repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
     mavenCentral()
     maven {
         name = "papermc-repo"
@@ -19,6 +21,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    implementation 'com.github.jitpack:gradle-simple:1.1'
 }
 
 def targetJavaVersion = 21
@@ -40,7 +43,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 processResources {
-    def props = [version: version]
+    def props = [version: version,group: rootProject.group]
     inputs.properties props
     filteringCharset 'UTF-8'
     filesMatching('paper-plugin.yml') {
