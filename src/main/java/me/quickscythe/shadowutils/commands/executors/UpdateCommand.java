@@ -14,10 +14,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -28,7 +25,7 @@ public class UpdateCommand implements BasicCommand {
     @Override
     public @NotNull Collection<String> suggest(@NotNull CommandSourceStack stack, @NotNull String[] args) {
         Collection<String> list = new ArrayList<>();
-        if (args.length == 1) {
+        if (args.length == 0) {
             try {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
@@ -47,7 +44,7 @@ public class UpdateCommand implements BasicCommand {
             }
 
         }
-        if (args.length == 2) {
+        if (args.length == 1) {
             try {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
@@ -58,7 +55,8 @@ public class UpdateCommand implements BasicCommand {
                 for (int temp = 0; temp < versions.getLength(); temp++) {
                     Node job = versions.item(temp);
                     String context = ((Element) job).getElementsByTagName("fileName").item(0).getTextContent();
-//                    context = context.replaceAll()
+                    context = context.replaceAll(args[0] + "-", "");
+                    context = context.replaceAll(".jar", "");
                     System.out.println(context);
                     list.add(context);
                 }
@@ -73,15 +71,22 @@ public class UpdateCommand implements BasicCommand {
 
     @Override
     public void execute(@NotNull CommandSourceStack stack, @NotNull String[] args) {
-        if (args.length == 1) {
+        if (args.length == 2) {
             String plugin = args[0];
-            String filename = plugin + ".jar";
-            String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/target/" + filename;
+            String version = args[1];
+            String filename = plugin + "-" + version + ".jar";
+            String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
             Utils.getLogger().log(Logger.LogLevel.INFO, "Downloading " + filename + "...");
             InputStream in = Utils.downloadFile(url);
             if (in != null) {
-                Utils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
                 try {
+                    Utils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
+                    for(File file : Utils.getPlugin().getDataFolder().getParentFile().listFiles()){
+                        if(file.getName().startsWith(plugin) && file.getName().equals(".jar")){
+                            file.delete();
+                            Utils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
+                        }
+                    }
                     Utils.saveStream(in, new FileOutputStream("plugins/" + filename));
                 } catch (FileNotFoundException e) {
                     Utils.getLogger().log(Logger.LogLevel.ERROR, e);
@@ -92,7 +97,7 @@ public class UpdateCommand implements BasicCommand {
 
 
         } else {
-            stack.getSender().sendMessage("Usage: /update <plugin>");
+            stack.getSender().sendMessage("Usage: /update <plugin> <version>");
         }
 
 

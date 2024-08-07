@@ -4,12 +4,14 @@ package me.quickscythe.shadowutils.utils;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Level;
+
 public class Logger {
 
-    private final org.slf4j.Logger LOG;
+    private final java.util.logging.@NotNull Logger LOG;
 
     public Logger(){
-        LOG = Utils.getPlugin().getSLF4JLogger();
+        LOG = Utils.getPlugin().getLogger();
     }
 
     public void log(String msg){
@@ -30,14 +32,16 @@ public class Logger {
 
     public void log(LogLevel level, String msg, CommandSender feedback){
         level = level == null ? LogLevel.INFO : level;
-        switch(level){
-            case WARN -> LOG.warn(msg);
-            case DEBUG -> LOG.debug(msg);
-            case ERROR -> LOG.error(msg);
-            case TRACE -> LOG.trace(msg);
-            default -> LOG.info(msg);
-        }
-        if(feedback!=null) feedback.sendMessage("[" + level.name() + "] " + msg);
+        msg = "[" + level.name() + "] " + msg;
+        LOG.info(msg);
+//        switch(level){
+//            case WARN -> LOG.info(Level.WARNING, msg);
+//            case DEBUG -> LOG.log(Level.FINE, msg);
+//            case ERROR -> LOG.log(Level.SEVERE, msg);
+//            case TRACE -> LOG.log(Level.CONFIG, msg);
+//            default -> LOG.info(msg);
+//        }
+        if(feedback!=null) feedback.sendMessage(msg);
     }
 
 
