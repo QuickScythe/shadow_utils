@@ -1,4 +1,4 @@
 name: ShadowUtils
-version: '1.0-SNAPSHOT'
+version: '${version}'
 main: me.quickscythe.shadowutils.Main
 api-version: '1.21'
