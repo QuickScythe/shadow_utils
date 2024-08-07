@@ -13,13 +13,14 @@ import org.jetbrains.annotations.NotNull;
 public class CommandManager {
 
     public static void init(){
-        new CommandBuilder("update", new UpdateCommand()).setDescription("Test desc").register();
+        new CommandBuilder("update", new UpdateCommand()).setDescription("Test desc").setAliases("getnew").register();
     }
 
     static class CommandBuilder {
         String label;
         BasicCommand executor;
         String desc = "";
+        String[] aliases = new String[]{};
 
 
         public CommandBuilder(String label, BasicCommand executor){
@@ -29,6 +30,11 @@ public class CommandManager {
 
         public CommandBuilder setDescription(String desc){
             this.desc = desc;
+            return this;
+        }
+
+        public CommandBuilder setAliases(String... aliases){
+            this.aliases = aliases;
             return this;
         }
 
