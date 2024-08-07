@@ -9,6 +9,7 @@ version = '0.1.7-SNAPSHOT'
 repositories {
 
     mavenCentral()
+    maven { url "https://jitpack.io" }
     maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
@@ -20,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
 }
 
 def targetJavaVersion = 21
