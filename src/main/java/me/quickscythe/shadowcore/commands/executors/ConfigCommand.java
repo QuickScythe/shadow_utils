@@ -31,7 +31,7 @@ public class ConfigCommand implements BasicCommand {
         if(args.length == 0){
             list.add("reset");
         }
-        if(args.length == 2){
+        if(args.length == 1){
             if(args[0].equalsIgnoreCase("reset")){
                 list.addAll(ConfigFileManager.getFiles());
             }
@@ -42,7 +42,7 @@ public class ConfigCommand implements BasicCommand {
 
     @Override
     public void execute(@NotNull CommandSourceStack stack, @NotNull String[] args) {
-        if(args.length <= 2 || args[0].equalsIgnoreCase("help")){
+        if(args.length <= 1 || args[0].equalsIgnoreCase("help")){
             /**
              * todo
              *  /config
