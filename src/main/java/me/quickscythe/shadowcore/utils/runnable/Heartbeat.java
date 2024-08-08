@@ -39,7 +39,8 @@ public class Heartbeat implements Runnable {
                         playtime = playtime + (new Date().getTime() - SessionManager.getSession(player).getLong("joined"));
                     }
                 }
-                player.showTitle(Title.title(Component.text(""), MessageUtils.formatTime(max_session_time - playtime), Title.Times.times(Duration.of(0, ChronoUnit.MILLIS), Duration.of(2, ChronoUnit.SECONDS), Duration.of(5, ChronoUnit.MILLIS))));
+                player.sendActionBar(MessageUtils.formatTime(max_session_time - playtime));
+//                player.showTitle(Title.title(Component.text(""), MessageUtils.formatTime(max_session_time - playtime), Title.Times.times(Duration.of(0, ChronoUnit.MILLIS), Duration.of(2, ChronoUnit.SECONDS), Duration.of(5, ChronoUnit.MILLIS))));
 
 //                ShadowUtils.getLogger().log(player.getName() + " has been playing for " + TimeUnit.SECONDS.convert(playtime, TimeUnit.MILLISECONDS) + " seconds.");
 
