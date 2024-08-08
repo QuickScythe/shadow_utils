@@ -7,6 +7,7 @@ import org.json2.JSONObject;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ConfigFileManager {
 
@@ -46,7 +47,7 @@ public class ConfigFileManager {
             }
             defaults = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
         } catch (IOException e) {
-            throw new RuntimeException("There was an error generating the loot tables.");
+            ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
         }
         return getFile(filename, defaults);
     }
@@ -55,5 +56,9 @@ public class ConfigFileManager {
         for(Map.Entry<String, ConfigFile> en : FILE_MAP.entrySet()){
             en.getValue().save();
         }
+    }
+
+    public static Set<String> getFiles() {
+        return FILE_MAP.keySet();
     }
 }

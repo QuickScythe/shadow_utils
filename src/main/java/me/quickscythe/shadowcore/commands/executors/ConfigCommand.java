@@ -5,6 +5,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
+import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,16 +28,35 @@ public class ConfigCommand implements BasicCommand {
     @Override
     public @NotNull Collection<String> suggest(@NotNull CommandSourceStack stack, @NotNull String[] args) {
         Collection<String> list = new ArrayList<>();
-
+        if(args.length == 0){
+            list.add("reset");
+        }
+        if(args.length == 2){
+            if(args[0].equalsIgnoreCase("reset")){
+                list.addAll(ConfigFileManager.getFiles());
+            }
+        }
         return list;
 
     }
 
     @Override
     public void execute(@NotNull CommandSourceStack stack, @NotNull String[] args) {
-        if(args.length == 0){
+        if(args.length <= 2 || args[0].equalsIgnoreCase("help")){
+            /**
+             * todo
+             *  /config
+             *  /config reset <file>
+             *  /config set <key> <value>
+             */
             stack.getSender().sendMessage(MessageUtils.getMessage("msg.test"));
             return;
         }
+        if(args[0].equalsIgnoreCase("reset")){
+            ConfigFileManager.getFile(args[1]).reset();
+            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&f" + args[0] + "&6 has been reset.");
+        }
+
+
     }
 }

@@ -1,8 +1,8 @@
 package me.quickscythe.shadowcore.utils.config;
 
 
-import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
+import me.quickscythe.shadowcore.utils.chat.Logger;
 import org.json2.JSONObject;
 
 import java.io.File;
@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class ConfigFile {
 
+    final JSONObject defaults;
     JSONObject data;
     File file;
 
@@ -28,10 +29,10 @@ public class ConfigFile {
             }
             scanner.close();
         } catch (IOException e) {
-            System.out.println("An error occurred loading loot drops.");
-            e.printStackTrace();
+            ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
         }
         this.data = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
+        this.defaults = new JSONObject(this.data.toString());
         this.file = file;
     }
 
@@ -52,5 +53,10 @@ public class ConfigFile {
 
     public void setData(JSONObject data) {
         this.data = data;
+    }
+
+    public void reset() {
+        this.data = new JSONObject(defaults);
+        save();
     }
 }

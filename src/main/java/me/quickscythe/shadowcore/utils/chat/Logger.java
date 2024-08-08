@@ -47,7 +47,7 @@ public class Logger {
 
 
     public enum LogLevel {
-        INFO("&2[INFO]"), WARN("&c[WARN]"), ERROR("&e[ERROR]"), TRACE("&7[TRACE]"), DEBUG("&7[DEBUG]");
+        INFO("&#438df2[INFO]"), WARN("&c[WARN]"), ERROR("&e[ERROR]"), TRACE("&7[TRACE]"), DEBUG("&7[DEBUG]");
 
         String tag;
 
