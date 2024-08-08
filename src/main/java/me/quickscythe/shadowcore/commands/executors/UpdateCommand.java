@@ -89,7 +89,7 @@ public class UpdateCommand implements BasicCommand {
                     for (File file : ShadowUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
                         if (name.startsWith(plugin)) {
-                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW));
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW), stack.getSender());
                             String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
                             Files.deleteIfExists(file.toPath());
                             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted", NamedTextColor.YELLOW)).build(), stack.getSender());

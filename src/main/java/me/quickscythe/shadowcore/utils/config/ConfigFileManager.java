@@ -47,6 +47,7 @@ public class ConfigFileManager {
                 data.append("\n");
             }
             defaults = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
+            ShadowUtils.getLogger().log("Defaults on launch: " + defaults.toString());
         } catch (IOException e) {
             ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
         }
