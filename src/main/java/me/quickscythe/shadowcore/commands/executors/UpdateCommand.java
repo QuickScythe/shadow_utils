@@ -96,7 +96,7 @@ public class UpdateCommand implements BasicCommand {
                         }
                     }
                     ShadowUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
-                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.GOLD).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), stack.getSender());
+                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), stack.getSender());
                 } catch (FileNotFoundException e) {
                     ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
                 } catch (IOException e) {

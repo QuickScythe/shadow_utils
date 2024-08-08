@@ -45,7 +45,7 @@ public class Logger {
     }
     public void log(LogLevel level, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
-        LOG.info(level.getTagString() + msg.content());
+        LOG.info(level.getTagString() + " " + msg.toString());
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
 //            case DEBUG -> LOG.log(Level.FINE, msg);
@@ -53,7 +53,7 @@ public class Logger {
 //            case TRACE -> LOG.log(Level.CONFIG, msg);
 //            default -> LOG.info(msg);
 //        }
-        if (feedback != null) feedback.sendMessage(level.getTag().append(msg));
+        if (feedback != null) feedback.sendMessage(level.getTag().append(text(" ")).append(msg));
     }
 
 

@@ -6,6 +6,7 @@ import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,6 +21,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static net.kyori.adventure.text.Component.text;
 
 
 public class ConfigCommand implements BasicCommand {
@@ -54,7 +57,7 @@ public class ConfigCommand implements BasicCommand {
         }
         if(args[0].equalsIgnoreCase("reset")){
             ConfigFileManager.getFile(args[1]).reset();
-            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&f" + args[0] + "&6 has been reset.");
+            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content(args[0]).color(NamedTextColor.WHITE).append(text(" has been reset.", NamedTextColor.WHITE)).build());
         }
 
 
