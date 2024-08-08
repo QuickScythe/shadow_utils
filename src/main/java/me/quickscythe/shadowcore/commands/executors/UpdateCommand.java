@@ -76,7 +76,7 @@ public class UpdateCommand implements BasicCommand {
             String version = args[1];
             String filename = plugin + "-" + version + ".jar";
             String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
-            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Downloading " + filename + "...");
+            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&6Downloading &f" + filename + "&6...");
             InputStream in = ShadowUtils.downloadFile(url);
             if (in != null) {
                 try {
@@ -86,11 +86,11 @@ public class UpdateCommand implements BasicCommand {
                         if (name.startsWith(plugin)) {
                             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Found file!");
                             Files.deleteIfExists(file.toPath());
-                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&f" + file.getName() + "&6 has been deleted.", stack.getSender());
                         }
                     }
                     ShadowUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
-                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
+                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&6Finished downloading &f" + filename, stack.getSender());
                 } catch (FileNotFoundException e) {
                     ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
                 } catch (IOException e) {
@@ -98,7 +98,7 @@ public class UpdateCommand implements BasicCommand {
                     throw new RuntimeException(e);
                 }
             } else {
-                ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "There was an error downloading " + filename, stack.getSender());
+                ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "&6There was an error downloading &f" + filename, stack.getSender());
             }
 
 

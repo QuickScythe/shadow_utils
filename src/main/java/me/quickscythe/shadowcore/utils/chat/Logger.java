@@ -33,7 +33,7 @@ public class Logger {
 
     public void log(LogLevel level, String msg, CommandSender feedback){
         level = level == null ? LogLevel.INFO : level;
-        msg = "[" + level.name() + "] " + msg;
+        msg = MessageUtils.colorize(level.getTag() + " &f" + msg);
         LOG.info(msg);
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
@@ -47,7 +47,17 @@ public class Logger {
 
 
     public enum LogLevel {
-        INFO, WARN, ERROR, TRACE, DEBUG
+        INFO("&2[INFO]"), WARN("&c[WARN]"), ERROR("&e[ERROR]"), TRACE("&7[TRACE]"), DEBUG("&7[DEBUG]");
+
+        String tag;
+
+        LogLevel(String tag){
+            this.tag = tag;
+        }
+
+        public String getTag() {
+            return tag;
+        }
     }
 
 }
