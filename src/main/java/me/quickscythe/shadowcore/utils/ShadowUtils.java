@@ -22,6 +22,7 @@ public class ShadowUtils {
 
     public static void init(JavaPlugin plugin){
         ShadowUtils.plugin = plugin;
+        plugin.saveConfig();
         logger = new Logger(plugin);
         MessageUtils.init();
     }
