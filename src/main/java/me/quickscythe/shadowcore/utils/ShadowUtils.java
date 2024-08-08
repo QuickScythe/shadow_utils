@@ -1,5 +1,6 @@
 package me.quickscythe.shadowcore.utils;
 
+import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 

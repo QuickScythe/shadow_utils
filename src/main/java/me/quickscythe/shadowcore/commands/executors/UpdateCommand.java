@@ -2,7 +2,7 @@ package me.quickscythe.shadowcore.commands.executors;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import me.quickscythe.shadowcore.utils.Logger;
+import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;

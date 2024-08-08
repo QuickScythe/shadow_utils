@@ -1,4 +1,4 @@
-package me.quickscythe.shadowcore.utils;
+package me.quickscythe.shadowcore.utils.chat;
 
 
 import org.bukkit.command.CommandSender;
