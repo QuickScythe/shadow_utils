@@ -1,6 +1,11 @@
 package me.quickscythe.shadowcore.utils.chat;
 
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +38,7 @@ public class Logger {
 
     public void log(LogLevel level, String msg, CommandSender feedback){
         level = level == null ? LogLevel.INFO : level;
-        msg = MessageUtils.colorize(level.getTag() + " &f" + msg);
+        msg = level.getTag() + msg;
         LOG.info(msg);
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
@@ -47,15 +52,19 @@ public class Logger {
 
 
     public enum LogLevel {
-        INFO("&#438df2[INFO]"), WARN("&c[WARN]"), ERROR("&e[ERROR]"), TRACE("&7[TRACE]"), DEBUG("&7[DEBUG]");
+        INFO(Component.text("[INFO]").color(TextColor.fromCSSHexString("#438df2"))), WARN("&c[WARN]"), ERROR("&e[ERROR]"), TRACE("&7[TRACE]"), DEBUG("&7[DEBUG]");
 
-        String tag;
+        TextComponent tag;
 
-        LogLevel(String tag){
+        LogLevel(TextComponent tag){
             this.tag = tag;
         }
 
-        public String getTag() {
+        LogLevel(String tag){
+            this.tag = LegacyComponentSerializer.legacyAmpersand().deserialize(tag);
+        }
+
+        public TextComponent getTag() {
             return tag;
         }
     }
