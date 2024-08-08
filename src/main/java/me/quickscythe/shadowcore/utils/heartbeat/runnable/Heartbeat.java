@@ -16,10 +16,10 @@ public class Heartbeat implements Runnable {
 
     JavaPlugin plugin;
 
-    private final static Map<Integer, FlutterTask> FLUTTERS = new HashMap<>();
-    private final static List<Integer> FLUTTERS_REMOVE = new ArrayList<>();
-    final static List<FlutterTask> FLUTTERS_ADD = new ArrayList<>();
-    private static int last_id = 0;
+    private final Map<Integer, FlutterTask> FLUTTERS = new HashMap<>();
+    private final List<Integer> FLUTTERS_REMOVE = new ArrayList<>();
+    final List<FlutterTask> FLUTTERS_ADD = new ArrayList<>();
+    private int last_id = 0;
 
     public Heartbeat(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -46,22 +46,22 @@ public class Heartbeat implements Runnable {
         }
     }
 
-    public static FlutterTask addFlutter(Flutter flutter){
+    public FlutterTask addFlutter(Flutter flutter){
         last_id = last_id+1;
         FlutterTask task = new FlutterTask(last_id, flutter);
         FLUTTERS_ADD.add(task);
         return task;
     }
 
-    public static void removeFlutter(FlutterTask task){
+    public void removeFlutter(FlutterTask task){
         removeFlutter(task.getId());
     }
 
-    public static void removeFlutter(int id){
+    public void removeFlutter(int id){
         FLUTTERS_REMOVE.add(id);
     }
 
-    public static Iterable<? extends FlutterTask> getAddQueue() {
+    public Iterable<? extends FlutterTask> getAddQueue() {
         return FLUTTERS_ADD;
     }
 
