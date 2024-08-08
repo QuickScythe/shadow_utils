@@ -39,7 +39,7 @@ public class ConfigFile {
     public void save() {
         try {
             FileWriter f2 = new FileWriter(file, false);
-            f2.write(data.toString());
+            f2.write(data.toString(4));
             f2.close();
         } catch (IOException e) {
             ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "There was an error saving " + file.getName());

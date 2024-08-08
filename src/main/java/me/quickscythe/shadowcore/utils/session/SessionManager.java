@@ -26,7 +26,6 @@ public class SessionManager {
     }
 
     public static void finish() {
-        //TODO Test to make sure this works incase of a server crash or something
         for(Player player : Bukkit.getOnlinePlayers()){
             finishSession(player);
         }
