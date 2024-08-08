@@ -18,4 +18,8 @@ public class ConfigManager {
         config.getData().put(key, val);
     }
 
+    public static void finish(){
+        config.save();
+    }
+
 }

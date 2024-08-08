@@ -111,5 +111,6 @@ public class ShadowUtils {
     public static void disable() {
         MessageUtils.disable();
         SessionManager.finish();
+        ConfigManager.finish();
     }
 }
