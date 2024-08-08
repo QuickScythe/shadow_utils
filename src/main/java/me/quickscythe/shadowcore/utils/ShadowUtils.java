@@ -27,11 +27,11 @@ public class ShadowUtils {
         ShadowUtils.plugin = plugin;
         plugin.saveConfig();
         logger = new Logger(plugin);
-        MessageUtils.init();
-        SessionManager.init();
-        ConfigManager.init();
+        MessageUtils.init("messages", plugin.getResource("messages.json"));
+        SessionManager.init("sessions");
+        ConfigManager.init("config", plugin.getResource("config.json"));
 
-        LocationManager.init();
+        LocationManager.init("locations");
 
         HeartbeatUtils.init();
     }
@@ -109,7 +109,7 @@ public class ShadowUtils {
     }
 
     public static void disable() {
-        MessageUtils.disable();
+        MessageUtils.finish();
         SessionManager.finish();
         ConfigManager.finish();
         LocationManager.finish();

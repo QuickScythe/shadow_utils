@@ -1,6 +1,7 @@
 package me.quickscythe.shadowcore.utils.chat;
 
 import me.quickscythe.shadowcore.utils.ShadowUtils;
+import me.quickscythe.shadowcore.utils.config.ConfigClass;
 import me.quickscythe.shadowcore.utils.config.ConfigFile;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
 import net.kyori.adventure.text.Component;
@@ -13,12 +14,7 @@ import java.text.DecimalFormat;
 
 import static net.kyori.adventure.text.Component.text;
 
-public class MessageUtils {
-    private static ConfigFile config;
-
-    public static void init() {
-        config = ConfigFileManager.getFile("messages", ShadowUtils.getPlugin().getResource("messages.json"));
-    }
+public class MessageUtils extends ConfigClass {
 
     public static String formatDate(long ms) {
 
@@ -108,9 +104,5 @@ public class MessageUtils {
 
     private static String getMessage(String key) {
         return config.getData().has(key) ? (config.getData().getString(key)) : key;
-    }
-
-    public static void disable() {
-        config.save();
     }
 }

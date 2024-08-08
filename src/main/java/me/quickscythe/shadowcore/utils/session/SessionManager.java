@@ -1,5 +1,6 @@
 package me.quickscythe.shadowcore.utils.session;
 
+import me.quickscythe.shadowcore.utils.config.ConfigClass;
 import me.quickscythe.shadowcore.utils.config.ConfigFile;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
 import org.bukkit.Bukkit;
@@ -12,14 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SessionManager {
+public class SessionManager extends ConfigClass {
 
     private static final Map<UUID, JSONObject> CURRENT_SESSIONS = new HashMap<>();
-    private static ConfigFile config;
 
-    public static void init() {
-        config = ConfigFileManager.getFile("sessions");
-    }
 
     public static ConfigFile getConfig() {
         return config;
