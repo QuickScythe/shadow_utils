@@ -57,7 +57,7 @@ public class ConfigCommand implements BasicCommand {
         }
         if(args[0].equalsIgnoreCase("reset")){
             ConfigFileManager.getFile(args[1]).reset();
-            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content(args[0]).color(NamedTextColor.WHITE).append(text(" has been reset.", NamedTextColor.WHITE)).build());
+            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content(args[1]).color(NamedTextColor.WHITE).append(text(" has been reset.", NamedTextColor.WHITE)).build());
         }
 
 

@@ -18,8 +18,10 @@ public class ConfigFileManager {
     }
 
     public static ConfigFile getFile(String filename, JSONObject defaults) {
+        ShadowUtils.getLogger().log("Looking for file " + filename);
         if (!FILE_MAP.containsKey(filename)) {
-
+            ShadowUtils.getLogger().log("Not in cache, loading. Defaults:");
+            ShadowUtils.getLogger().log(defaults.toString());
             File file = new File(ShadowUtils.getPlugin().getDataFolder() + "/" + filename + ".json");
             if (!file.exists()) {
                 try {
