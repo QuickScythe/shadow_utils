@@ -56,7 +56,7 @@ public class ConfigFile {
     }
 
     public void reset() {
-        this.data = new JSONObject(defaults);
+        this.data = new JSONObject(defaults.toString());
         save();
     }
 }

@@ -3,12 +3,15 @@ package me.quickscythe.shadowcore.utils.chat;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class Logger {
 
@@ -38,8 +41,7 @@ public class Logger {
 
     public void log(LogLevel level, String msg, CommandSender feedback){
         level = level == null ? LogLevel.INFO : level;
-        msg = level.getTag() + msg;
-        LOG.info(msg);
+        LOG.info(level.getTagString() + msg);
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
 //            case DEBUG -> LOG.log(Level.FINE, msg);
@@ -47,24 +49,35 @@ public class Logger {
 //            case TRACE -> LOG.log(Level.CONFIG, msg);
 //            default -> LOG.info(msg);
 //        }
-        if(feedback!=null) feedback.sendMessage(msg);
+        if(feedback!=null) feedback.sendMessage(level.getTag().append(text().content(msg)));
     }
 
 
     public enum LogLevel {
-        INFO(Component.text("[INFO]").color(TextColor.fromCSSHexString("#438df2"))), WARN("&c[WARN]"), ERROR("&e[ERROR]"), TRACE("&7[TRACE]"), DEBUG("&7[DEBUG]");
+        INFO("[INFO]", "#438df2"), WARN("[WARN]", NamedTextColor.YELLOW), ERROR("[ERROR]", NamedTextColor.RED), TRACE("[TRACE]"), DEBUG("[DEBUG]");
 
-        TextComponent tag;
-
-        LogLevel(TextComponent tag){
+        String tag;
+        TextColor color;
+        LogLevel(String tag, String color){
             this.tag = tag;
+            this.color = TextColor.fromCSSHexString(color);
+        }
+
+        LogLevel(String tag, NamedTextColor color){
+            this.tag = tag;
+            this.color = color;
         }
 
         LogLevel(String tag){
-            this.tag = LegacyComponentSerializer.legacyAmpersand().deserialize(tag);
+            this.tag = tag;
+            this.color = NamedTextColor.GRAY ;
         }
 
         public TextComponent getTag() {
+            return text().content("").color(NamedTextColor.WHITE).append(text(tag,color)).build();
+        }
+
+        public String getTagString() {
             return tag;
         }
     }
