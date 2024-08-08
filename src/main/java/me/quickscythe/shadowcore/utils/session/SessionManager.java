@@ -32,7 +32,7 @@ public class SessionManager {
         //{"this-is-a-uuid":[{"joined":238}]}
         JSONObject session = new JSONObject();
         session.put("joined", new Date().getTime());
-        CURRENT_SESSIONS.put(player.getUniqueId(), new JSONObject());
+        CURRENT_SESSIONS.put(player.getUniqueId(), session);
     }
 
     public static JSONObject getSession(Player player) {
