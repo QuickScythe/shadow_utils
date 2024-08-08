@@ -2,6 +2,7 @@ package me.quickscythe.shadowcore.commands.executors;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import me.quickscythe.shadowcore.commands.ShadowCommand;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import net.kyori.adventure.text.Component;
@@ -25,7 +26,7 @@ import java.util.Collection;
 import static net.kyori.adventure.text.Component.text;
 
 
-public class UpdateCommand implements BasicCommand {
+public class UpdateCommand implements ShadowCommand {
 
 
     @Override
