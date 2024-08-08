@@ -28,8 +28,7 @@ public class Heartbeat implements Runnable {
     public void run() {
         if (plugin.isEnabled()) {
 
-            long max_session_time = TimeUnit.MILLISECONDS.convert(120, TimeUnit.MINUTES);
-            ShadowUtils.getLogger().log(max_session_time + "");
+            long max_session_time = TimeUnit.MILLISECONDS.convert((int) ConfigManager.getVariable("max_session_time"), TimeUnit.MINUTES);
             for (Player player : Bukkit.getOnlinePlayers()) {
                 long playtime = 0;
                 JSONArray sessions = SessionManager.getSessions(player);
@@ -46,7 +45,7 @@ public class Heartbeat implements Runnable {
 
             }
 
-            Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, this, 30);
+            Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, this, 5);
         }
     }
 }
