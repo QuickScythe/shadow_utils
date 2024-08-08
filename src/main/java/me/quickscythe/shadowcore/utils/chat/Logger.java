@@ -46,7 +46,10 @@ public class Logger {
     }
     public void log(LogLevel level, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
-        LOG.info(level.getTagString() + " " + PlainTextComponentSerializer.plainText().serialize(msg));
+        StringBuilder builder = new StringBuilder();
+        builder.append(msg.content());
+        loopComponents(msg, builder);
+        LOG.info(level.getTagString() + " " + builder.toString());
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
 //            case DEBUG -> LOG.log(Level.FINE, msg);
@@ -55,6 +58,16 @@ public class Logger {
 //            default -> LOG.info(msg);
 //        }
         if (feedback != null) feedback.sendMessage(level.getTag().append(text(" ")).append(msg));
+    }
+
+    private void loopComponents(TextComponent msg, StringBuilder builder) {
+        for(Component comp : msg.children()){
+            if(comp instanceof TextComponent tcomp){
+                if(tcomp.children().size() >0)
+                    loopComponents(tcomp, builder);
+                builder.append(tcomp.content());
+            }
+        }
     }
 
 
