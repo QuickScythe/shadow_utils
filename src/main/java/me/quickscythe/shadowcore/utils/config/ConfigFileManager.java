@@ -52,12 +52,6 @@ public class ConfigFileManager {
         return getFile(filename, defaults);
     }
 
-    public static void saveFiles(){
-        for(Map.Entry<String, ConfigFile> en : FILE_MAP.entrySet()){
-            en.getValue().save();
-        }
-    }
-
     public static Set<String> getFiles() {
         return FILE_MAP.keySet();
     }

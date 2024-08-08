@@ -110,4 +110,7 @@ public class MessageUtils {
         return config.getData().has(key) ? (config.getData().getString(key)) : key;
     }
 
+    public static void disable() {
+        config.save();
+    }
 }

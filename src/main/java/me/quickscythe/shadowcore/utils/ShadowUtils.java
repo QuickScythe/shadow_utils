@@ -3,6 +3,7 @@ package me.quickscythe.shadowcore.utils;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
+import me.quickscythe.shadowcore.utils.session.SessionManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -26,6 +27,7 @@ public class ShadowUtils {
         plugin.saveConfig();
         logger = new Logger(plugin);
         MessageUtils.init();
+        SessionManager.init();
     }
 
     public static JavaPlugin getPlugin(){
@@ -101,6 +103,7 @@ public class ShadowUtils {
     }
 
     public static void disable() {
-        ConfigFileManager.saveFiles();
+        MessageUtils.disable();
+        SessionManager.finish();
     }
 }
