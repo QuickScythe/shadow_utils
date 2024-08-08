@@ -55,6 +55,7 @@ public class UpdateCommand implements BasicCommand {
                 for (int temp = 0; temp < versions.getLength(); temp++) {
                     Node job = versions.item(temp);
                     String context = ((Element) job).getElementsByTagName("fileName").item(0).getTextContent();
+                    if(context.endsWith("-javadoc.jar") || context.endsWith("-sources.jar")) continue;
                     context = context.replaceAll(args[0] + "-", "");
                     context = context.replaceAll(".jar", "");
                     list.add(context);
