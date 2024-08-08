@@ -3,6 +3,9 @@ package me.quickscythe.shadowcore.utils.chat;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigFile;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.ChatColor;
 
 import java.awt.*;
@@ -125,11 +128,19 @@ public class MessageUtils {
     }
 
 
-    public static String getMessage(String key, Object... replacements) {
+    public static Component getMessage(String key, Object... replacements) {
+        Component text;
         String a = getMessage(key);
         for (int i = 0; i != replacements.length; i++)
             a = a.replaceFirst("\\[" + i + "]", replacements[i].toString());
-        return a;
+        if (a.startsWith("{")) {
+            text = GsonComponentSerializer.gson().deserialize(a);
+        } else {
+
+            text = Component.text(a);
+        }
+
+        return text;
     }
 
     private static String getMessage(String key) {

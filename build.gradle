@@ -3,8 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.github.QuickScythe'
-version = '0.1.10-SNAPSHOT'
+
 
 repositories {
 
@@ -24,7 +23,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = ${project.java_version}
 java {
     withSourcesJar()
     withJavadocJar()
