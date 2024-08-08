@@ -63,7 +63,7 @@ public class Logger {
     private void loopComponents(TextComponent msg, StringBuilder builder) {
         for(Component comp : msg.children()){
             if(comp instanceof TextComponent tcomp){
-                if(tcomp.children().size() >0)
+                if(!tcomp.children().isEmpty())
                     loopComponents(tcomp, builder);
                 builder.append(tcomp.content());
             }

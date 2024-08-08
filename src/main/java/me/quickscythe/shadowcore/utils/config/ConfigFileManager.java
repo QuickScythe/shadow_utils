@@ -18,9 +18,7 @@ public class ConfigFileManager {
     }
 
     public static ConfigFile getFile(String filename, JSONObject defaults) {
-        ShadowUtils.getLogger().log("Looking for file " + filename);
         if (!FILE_MAP.containsKey(filename)) {
-            ShadowUtils.getLogger().log("Not in cache, loading. Defaults:");
             ShadowUtils.getLogger().log(defaults.toString());
             File file = new File(ShadowUtils.getPlugin().getDataFolder() + "/" + filename + ".json");
             if (!file.exists()) {
@@ -45,11 +43,9 @@ public class ConfigFileManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 data.append(line);
-                ShadowUtils.getLogger().log(line);
                 data.append("\n");
             }
             defaults = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
-            ShadowUtils.getLogger().log("Defaults on launch: " + defaults.toString());
         } catch (IOException e) {
             ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
         }

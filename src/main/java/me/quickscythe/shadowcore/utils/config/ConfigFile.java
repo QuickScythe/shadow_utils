@@ -34,8 +34,6 @@ public class ConfigFile {
         this.data = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
         this.defaults = new JSONObject(defaults.toString());
         this.file = file;
-        ShadowUtils.getLogger().log("Data: " + this.data.toString());
-        ShadowUtils.getLogger().log("Defaults: " + this.defaults.toString());
     }
 
     public void save() {
@@ -58,11 +56,7 @@ public class ConfigFile {
     }
 
     public void reset() {
-        ShadowUtils.getLogger().log("Resetting. Old data: " + this.data.toString());
-        ShadowUtils.getLogger().log("Resetting. Old defaults: " + this.defaults.toString());
         this.data = new JSONObject(defaults.toString());
-        ShadowUtils.getLogger().log("Finished reset. Data: " + this.data.toString());
-        ShadowUtils.getLogger().log("Finished reset. Defaults: " + this.defaults.toString());
         save();
     }
 }
