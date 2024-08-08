@@ -30,7 +30,7 @@ public class Heartbeat implements Runnable {
                     JSONObject session = sessions.getJSONObject(i);
                     if (session.has("playtime")) playtime = playtime + session.getLong("playtime");
                     else {
-                        playtime = playtime + (SessionManager.getSession(player).getLong("joined") - new Date().getTime());
+                        playtime = playtime + (new Date().getTime() - SessionManager.getSession(player).getLong("joined"));
                     }
                 }
                 ShadowUtils.getLogger().log(player.getName() + " has been playing for " + TimeUnit.SECONDS.convert(playtime, TimeUnit.MILLISECONDS) + " seconds.");
