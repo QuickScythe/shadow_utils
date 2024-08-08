@@ -6,7 +6,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import me.quickscythe.shadowcore.commands.executors.UpdateCommand;
-import me.quickscythe.shadowcore.utils.Utils;
+import me.quickscythe.shadowcore.utils.ShadowUtils;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +39,7 @@ public class CommandManager {
         }
 
         public void register(){
-            @NotNull LifecycleEventManager<Plugin> manager = Utils.getPlugin().getLifecycleManager();
+            @NotNull LifecycleEventManager<Plugin> manager = ShadowUtils.getPlugin().getLifecycleManager();
             manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
                 final Commands commands = event.registrar();
                 commands.register(label, desc, executor);

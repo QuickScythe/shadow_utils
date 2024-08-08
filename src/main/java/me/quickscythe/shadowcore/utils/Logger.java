@@ -2,14 +2,17 @@ package me.quickscythe.shadowcore.utils;
 
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 public class Logger {
 
     private final java.util.logging.@NotNull Logger LOG;
+    private final Plugin plugin;
 
-    public Logger(){
-        LOG = Utils.getPlugin().getLogger();
+    public Logger(Plugin plugin){
+        this.plugin = plugin;
+        LOG = plugin.getLogger();
     }
 
     public void log(String msg){

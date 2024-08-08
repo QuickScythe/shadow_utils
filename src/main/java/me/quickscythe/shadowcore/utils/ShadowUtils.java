@@ -10,7 +10,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Base64;
 
-public class Utils {
+public class ShadowUtils {
 
     public static JavaPlugin plugin;
     public static Logger logger;
@@ -19,8 +19,8 @@ public class Utils {
     public static final String JENKINS_API_ENDPOINT = "api/xml";
 
     public static void init(JavaPlugin plugin){
-        Utils.plugin = plugin;
-        logger = new Logger();
+        ShadowUtils.plugin = plugin;
+        logger = new Logger(plugin);
     }
 
     public static JavaPlugin getPlugin(){

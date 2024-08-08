@@ -3,7 +3,7 @@ package me.quickscythe.shadowcore.commands.executors;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.quickscythe.shadowcore.utils.Logger;
-import me.quickscythe.shadowcore.utils.Utils;
+import me.quickscythe.shadowcore.utils.ShadowUtils;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,7 +31,7 @@ public class UpdateCommand implements BasicCommand {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
 
-                Document xml = db.parse(Utils.downloadFile(Utils.JENKINS_URL + Utils.JENKINS_API_ENDPOINT));
+                Document xml = db.parse(ShadowUtils.downloadFile(ShadowUtils.JENKINS_URL + ShadowUtils.JENKINS_API_ENDPOINT));
                 xml.getDocumentElement().normalize();
                 NodeList jobs = xml.getElementsByTagName("job");
                 for (int temp = 0; temp < jobs.getLength(); temp++) {
@@ -49,7 +49,7 @@ public class UpdateCommand implements BasicCommand {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder db = dbf.newDocumentBuilder();
 
-                Document xml = db.parse(Utils.downloadFile(Utils.JENKINS_URL + "job/" + args[0] + "/lastStableBuild/" + Utils.JENKINS_API_ENDPOINT));
+                Document xml = db.parse(ShadowUtils.downloadFile(ShadowUtils.JENKINS_URL + "job/" + args[0] + "/lastStableBuild/" + ShadowUtils.JENKINS_API_ENDPOINT));
                 xml.getDocumentElement().normalize();
                 NodeList versions = xml.getElementsByTagName("artifact");
                 for (int temp = 0; temp < versions.getLength(); temp++) {
@@ -76,29 +76,29 @@ public class UpdateCommand implements BasicCommand {
             String version = args[1];
             String filename = plugin + "-" + version + ".jar";
             String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
-            Utils.getLogger().log(Logger.LogLevel.INFO, "Downloading " + filename + "...");
-            InputStream in = Utils.downloadFile(url);
+            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Downloading " + filename + "...");
+            InputStream in = ShadowUtils.downloadFile(url);
             if (in != null) {
                 try {
 
-                    for (File file : Utils.getPlugin().getDataFolder().getParentFile().listFiles()) {
+                    for (File file : ShadowUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
                         if (name.startsWith(plugin)) {
-                            Utils.getLogger().log(Logger.LogLevel.INFO, "Found file!");
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Found file!");
                             Files.deleteIfExists(file.toPath());
-                            Utils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, file.getName() + " has been deleted.", stack.getSender());
                         }
                     }
-                    Utils.saveStream(in, new FileOutputStream("plugins/" + filename));
-                    Utils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
+                    ShadowUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
+                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Finished downloading " + filename, stack.getSender());
                 } catch (FileNotFoundException e) {
-                    Utils.getLogger().log(Logger.LogLevel.ERROR, e);
+                    ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
                 } catch (IOException e) {
-                    Utils.getLogger().log(Logger.LogLevel.ERROR, "ERROR");
+                    ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "ERROR");
                     throw new RuntimeException(e);
                 }
             } else {
-                Utils.getLogger().log(Logger.LogLevel.ERROR, "There was an error downloading " + filename, stack.getSender());
+                ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "There was an error downloading " + filename, stack.getSender());
             }
 
 
