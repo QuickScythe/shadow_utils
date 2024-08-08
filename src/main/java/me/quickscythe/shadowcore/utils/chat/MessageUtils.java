@@ -4,9 +4,14 @@ import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigFile;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 
 import java.text.DecimalFormat;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class MessageUtils {
     private static ConfigFile config;
@@ -15,7 +20,7 @@ public class MessageUtils {
         config = ConfigFileManager.getFile("messages", ShadowUtils.getPlugin().getResource("messages.json"));
     }
 
-    public static String formatDate(long ms, String tcolor, String ncolor) {
+    public static String formatDate(long ms) {
 
         int l = (int) (ms / 1000);
         int sec = l % 60;
@@ -24,30 +29,32 @@ public class MessageUtils {
         int days = (((l / 60) / 60) / 24) % 7;
         int weeks = (((l / 60) / 60) / 24) / 7;
 
+        String sect = sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "";
+        String mint = (min > 0 ? ", " + min + " minutes" : "");
+        String hourt =(hours > 0 ? ", " + hours + " hours" : "");
+        String dayt = (days > 0 ? ", " + days + " days" : "");
+
         if (weeks > 0) {
-            return ncolor + weeks + tcolor + " weeks" + (days > 0 ? ", " + ncolor + days + tcolor + " days" : "") + (hours > 0 ? ", " + ncolor + hours + tcolor + " hours" : "") + (min > 0 ? ", " + ncolor + min + tcolor + " minutes" : "") + (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
+            return weeks + " weeks" + dayt + hourt + mint + sect;
         }
         if (days > 0) {
-            return ncolor + days + tcolor + " days" + (hours > 0 ? ", " + ncolor + hours + tcolor + " hours" : "") + (min > 0 ? ", " + ncolor + min + tcolor + " minutes" : "") + (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
+            return days + " days" + hourt + mint + sect;
         }
         if (hours > 0) {
-            return ncolor + hours + tcolor + " hours" + (min > 0 ? ", " + ncolor + min + tcolor + " minutes" : "") + (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
+            return hours + " hours" + mint + sect;
         }
         if (min > 0) {
-            return ncolor + min + tcolor + " minutes" + (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
+            return min + " minutes" + sect;
         }
         if (sec > 0) {
-            return ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds");
+            return sec + " " + (sec == 1 ? "second" : "seconds");
         }
 
-        return ncolor + "less than a second" + tcolor + "";
+        return "less than a second";
     }
 
-    public static String formatDateRaw(long ms) {
-        return formatDate(ms, "", "");
-    }
 
-    public static String formatTime(long ms, String ncolor, String tcolor) {
+    public static TextComponent formatTime(long ms) {
         int l = (int) (ms / 1000);
 
         int sec = l % 60;
@@ -58,28 +65,29 @@ public class MessageUtils {
 
         DecimalFormat format = new DecimalFormat("00");
 
-        if (weeks > 0) {
-            return ncolor + format.format(weeks) + tcolor + ":" + ncolor + format.format(days) + tcolor + ":" + ncolor + format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor;
+        String sect = format.format(sec);
+        String mint = format.format(min);
+        String hourt = format.format(hours);
+        String dayt = format.format(days);
+        String weekt = format.format(weeks);
 
-        }
-        if (days > 0) {
-            return ncolor + format.format(days) + tcolor + ":" + ncolor + format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor;
-        }
-        if (hours > 0) {
-            return ncolor + format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor;
-        }
-        if (min > 0) {
-            return ncolor + format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor;
-        }
-        if (sec > 0) {
-            return ncolor + "00" + tcolor + ":" + ncolor + format.format(sec) + tcolor;
-        }
+        TextComponent col = text(":", NamedTextColor.WHITE);
 
-        return ncolor + "00" + tcolor + ":" + ncolor + "00" + tcolor;
+        if (weeks > 0)
+            return text("").append(colorNum(weekt)).append(col).append(colorNum(dayt)).append(col).append(colorNum(hourt)).append(col).append(colorNum(hourt)).append(col).append(colorNum(mint)).append(col).append(colorNum(sect));
+        if (days > 0)
+            return text("").append(colorNum(dayt)).append(col).append(colorNum(hourt)).append(col).append(colorNum(mint)).append(col).append(colorNum(sect));
+        if (hours > 0)
+            return text("").append(colorNum(hourt)).append(col).append(colorNum(mint)).append(col).append(colorNum(sect));
+        if (min > 0)
+            return text("").append(colorNum(mint)).append(col).append(colorNum(sect));
+        if (sec > 0)
+            return text("").append(colorNum("00")).append(col).append(colorNum(sect));
+        return text("").append(colorNum("00")).append(col).append(colorNum("00"));
     }
 
-    public static String formatTimeRaw(long ms) {
-        return formatTime(ms, "", "");
+    private static ComponentLike colorNum(String s) {
+        return text(s, NamedTextColor.YELLOW);
     }
 
 
@@ -92,7 +100,7 @@ public class MessageUtils {
             text = GsonComponentSerializer.gson().deserialize(a);
         } else {
 
-            text = Component.text(a);
+            text = text(a);
         }
 
         return text;
