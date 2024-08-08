@@ -32,7 +32,7 @@ public class ConfigFile {
             ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
         }
         this.data = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());
-        this.defaults = new JSONObject(this.data.toString());
+        this.defaults = new JSONObject(defaults.toString());
         this.file = file;
         ShadowUtils.getLogger().log("Data: " + this.data.toString());
         ShadowUtils.getLogger().log("Defaults: " + this.defaults.toString());
