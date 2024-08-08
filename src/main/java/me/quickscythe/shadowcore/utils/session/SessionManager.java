@@ -26,7 +26,7 @@ public class SessionManager {
     }
 
     public static void finish() {
-        for(Player player : Bukkit.getOnlinePlayers()){
+        for (Player player : Bukkit.getOnlinePlayers()) {
             finishSession(player);
         }
 
@@ -53,5 +53,15 @@ public class SessionManager {
         session.put("playtime", session.getLong("left") - session.getLong("joined"));
         json.getJSONArray(player.getUniqueId().toString()).put(session);
         CURRENT_SESSIONS.remove(player.getUniqueId());
+    }
+
+    public static JSONArray getSessions(Player player) {
+        JSONArray sessions;
+        if (config.getData().has(player.getUniqueId().toString())) {
+            sessions = config.getData().getJSONArray(player.getUniqueId().toString());
+        } else sessions = new JSONArray();
+        sessions.put(getSession(player));
+        return sessions;
+
     }
 }

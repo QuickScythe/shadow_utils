@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ConfigFile {
+public class ConfigFile implements Config {
 
     final JSONObject defaults;
     JSONObject data;

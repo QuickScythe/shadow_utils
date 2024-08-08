@@ -3,7 +3,10 @@ package me.quickscythe.shadowcore.utils;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
+import me.quickscythe.shadowcore.utils.config.ConfigManager;
+import me.quickscythe.shadowcore.utils.runnable.Heartbeat;
 import me.quickscythe.shadowcore.utils.session.SessionManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -28,6 +31,9 @@ public class ShadowUtils {
         logger = new Logger(plugin);
         MessageUtils.init();
         SessionManager.init();
+        ConfigManager.init();
+
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Heartbeat(plugin), 30);
     }
 
     public static JavaPlugin getPlugin(){
