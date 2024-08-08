@@ -43,6 +43,7 @@ public class ConfigFileManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 data.append(line);
+                ShadowUtils.getLogger().log(line);
                 data.append("\n");
             }
             defaults = data.toString().isEmpty() ? defaults : new JSONObject(data.toString());

@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +46,7 @@ public class Logger {
     }
     public void log(LogLevel level, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
-        LOG.info(level.getTagString() + " " + msg.toString());
+        LOG.info(level.getTagString() + " " + PlainTextComponentSerializer.plainText().serialize(msg));
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
 //            case DEBUG -> LOG.log(Level.FINE, msg);
