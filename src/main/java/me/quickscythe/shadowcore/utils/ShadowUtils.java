@@ -1,5 +1,6 @@
 package me.quickscythe.shadowcore.utils;
 
+import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -21,6 +22,7 @@ public class ShadowUtils {
     public static void init(JavaPlugin plugin){
         ShadowUtils.plugin = plugin;
         logger = new Logger(plugin);
+        MessageUtils.init();
     }
 
     public static JavaPlugin getPlugin(){

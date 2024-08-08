@@ -28,7 +28,7 @@ public class Logger {
         StringBuilder trace = new StringBuilder();
         for(StackTraceElement el : ex.getStackTrace())
             trace.append(el).append("\n");
-        log(level, trace.toString(), null);
+        log(level, ex.getMessage() + ": " + trace.toString(), null);
     }
 
     public void log(LogLevel level, String msg, CommandSender feedback){
