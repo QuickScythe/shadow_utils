@@ -56,10 +56,12 @@ public class SessionManager {
     }
 
     public static JSONArray getSessions(Player player) {
-        JSONArray sessions;
+        final JSONArray sessions = new JSONArray();
         if (config.getData().has(player.getUniqueId().toString())) {
-            sessions = config.getData().getJSONArray(player.getUniqueId().toString());
-        } else sessions = new JSONArray();
+            JSONArray old_ses = config.getData().getJSONArray(player.getUniqueId().toString());
+            for(int i=0;i!=old_ses.length();i++)
+                sessions.put(old_ses.getJSONObject(i));
+        }
         sessions.put(getSession(player));
         return sessions;
 
