@@ -31,6 +31,8 @@ public class ShadowUtils {
         SessionManager.init();
         ConfigManager.init();
 
+        LocationManager.init();
+
         HeartbeatUtils.init();
     }
 
@@ -110,5 +112,6 @@ public class ShadowUtils {
         MessageUtils.disable();
         SessionManager.finish();
         ConfigManager.finish();
+        LocationManager.finish();
     }
 }
