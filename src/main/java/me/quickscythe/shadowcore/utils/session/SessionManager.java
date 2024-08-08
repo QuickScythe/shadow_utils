@@ -2,6 +2,7 @@ package me.quickscythe.shadowcore.utils.session;
 
 import me.quickscythe.shadowcore.utils.config.ConfigFile;
 import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.json2.JSONArray;
 import org.json2.JSONObject;
@@ -25,6 +26,12 @@ public class SessionManager {
     }
 
     public static void finish() {
+        //TODO Test to make sure this works incase of a server crash or something
+        for(Player player : Bukkit.getOnlinePlayers()){
+            finishSession(player);
+        }
+
+
         config.save();
     }
 
