@@ -5,8 +5,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -18,30 +16,36 @@ public class Logger {
     private final java.util.logging.@NotNull Logger LOG;
     private final Plugin plugin;
 
-    public Logger(Plugin plugin){
+    public Logger(Plugin plugin) {
         this.plugin = plugin;
         LOG = plugin.getLogger();
     }
 
-    public void log(String msg){
-        log(LogLevel.INFO, msg, null);
+    public void log(String msg) {
+        log(LogLevel.INFO, msg);
     }
 
-
-    public void log(LogLevel level, String msg){
-        log(level,msg, null);
+    public void log(LogLevel level, String msg) {
+        log(level, msg, null);
     }
 
-    public void log(LogLevel level, Exception ex){
+    public void log(LogLevel level, TextComponent msg) {
+        log(level, msg, null);
+    }
+
+    public void log(LogLevel level, Exception ex) {
         StringBuilder trace = new StringBuilder();
-        for(StackTraceElement el : ex.getStackTrace())
+        for (StackTraceElement el : ex.getStackTrace())
             trace.append(el).append("\n");
         log(level, ex.getMessage() + ": " + trace.toString(), null);
     }
 
-    public void log(LogLevel level, String msg, CommandSender feedback){
+    public void log(LogLevel level, String msg, CommandSender feedback) {
+        log(level, Component.text(msg), feedback);
+    }
+    public void log(LogLevel level, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
-        LOG.info(level.getTagString() + msg);
+        LOG.info(level.getTagString() + msg.content());
 //        switch(level){
 //            case WARN -> LOG.info(Level.WARNING, msg);
 //            case DEBUG -> LOG.log(Level.FINE, msg);
@@ -49,7 +53,7 @@ public class Logger {
 //            case TRACE -> LOG.log(Level.CONFIG, msg);
 //            default -> LOG.info(msg);
 //        }
-        if(feedback!=null) feedback.sendMessage(level.getTag().append(text().content(msg)));
+        if (feedback != null) feedback.sendMessage(level.getTag().append(msg));
     }
 
 
@@ -58,23 +62,24 @@ public class Logger {
 
         String tag;
         TextColor color;
-        LogLevel(String tag, String color){
+
+        LogLevel(String tag, String color) {
             this.tag = tag;
             this.color = TextColor.fromCSSHexString(color);
         }
 
-        LogLevel(String tag, NamedTextColor color){
+        LogLevel(String tag, NamedTextColor color) {
             this.tag = tag;
             this.color = color;
         }
 
-        LogLevel(String tag){
+        LogLevel(String tag) {
             this.tag = tag;
-            this.color = NamedTextColor.GRAY ;
+            this.color = NamedTextColor.GRAY;
         }
 
         public TextComponent getTag() {
-            return text().content("").color(NamedTextColor.WHITE).append(text(tag,color)).build();
+            return text().content("").color(NamedTextColor.WHITE).append(text(tag, color)).build();
         }
 
         public String getTagString() {

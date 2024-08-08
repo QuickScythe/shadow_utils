@@ -2,8 +2,11 @@ package me.quickscythe.shadowcore.commands.executors;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
+import me.quickscythe.shadowcore.utils.chat.Logger;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,6 +21,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static net.kyori.adventure.text.Component.text;
 
 
 public class UpdateCommand implements BasicCommand {
@@ -55,7 +60,7 @@ public class UpdateCommand implements BasicCommand {
                 for (int temp = 0; temp < versions.getLength(); temp++) {
                     Node job = versions.item(temp);
                     String context = ((Element) job).getElementsByTagName("fileName").item(0).getTextContent();
-                    if(context.endsWith("-javadoc.jar") || context.endsWith("-sources.jar")) continue;
+                    if (context.endsWith("-javadoc.jar") || context.endsWith("-sources.jar")) continue;
                     context = context.replaceAll(args[0] + "-", "");
                     context = context.replaceAll(".jar", "");
                     list.add(context);
@@ -76,7 +81,7 @@ public class UpdateCommand implements BasicCommand {
             String version = args[1];
             String filename = plugin + "-" + version + ".jar";
             String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
-            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&6Downloading &f" + filename + "&6...");
+            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Downloading ", NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), stack.getSender());
             InputStream in = ShadowUtils.downloadFile(url);
             if (in != null) {
                 try {
@@ -84,13 +89,14 @@ public class UpdateCommand implements BasicCommand {
                     for (File file : ShadowUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
                         if (name.startsWith(plugin)) {
-                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "Found file!");
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW));
+                            String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
                             Files.deleteIfExists(file.toPath());
-                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&f" + file.getName() + "&6 has been deleted.", stack.getSender());
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted", NamedTextColor.YELLOW)).build(), stack.getSender());
                         }
                     }
                     ShadowUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
-                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, "&6Finished downloading &f" + filename, stack.getSender());
+                    ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.GOLD).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), stack.getSender());
                 } catch (FileNotFoundException e) {
                     ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
                 } catch (IOException e) {
@@ -98,7 +104,7 @@ public class UpdateCommand implements BasicCommand {
                     throw new RuntimeException(e);
                 }
             } else {
-                ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "&6There was an error downloading &f" + filename, stack.getSender());
+                ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, text("There was an error downloading", NamedTextColor.YELLOW).append(text(plugin)), stack.getSender());
             }
 
 
@@ -107,5 +113,11 @@ public class UpdateCommand implements BasicCommand {
         }
 
 
+    }
+
+    private Component getStylizedName(String plugin, String version) {
+        TextColor AQUA = NamedTextColor.AQUA;
+        TextColor GREEN = NamedTextColor.GREEN;
+        return text().content("").color(NamedTextColor.WHITE).append(text(plugin, AQUA)).append(text(" v" + version, GREEN)).build();
     }
 }

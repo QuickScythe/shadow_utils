@@ -46,7 +46,7 @@ public class MessageUtils {
         return sb.toString();
     }
 
-    public static int[] getRGB(String rgb) {
+    private static int[] getRGB(String rgb) {
         int[] ret = new int[3];
         for (int i = 0; i < 3; i++) {
             ret[i] = hexToInt(rgb.charAt(i * 2), rgb.charAt(i * 2 + 1));
@@ -54,7 +54,7 @@ public class MessageUtils {
         return ret;
     }
 
-    public static int hexToInt(char a, char b) {
+    private static int hexToInt(char a, char b) {
         int x = a < 65 ? a - 48 : a - 55;
         int y = b < 65 ? b - 48 : b - 55;
         return x * 16 + y;
