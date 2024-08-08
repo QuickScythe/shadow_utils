@@ -55,6 +55,19 @@ public class SessionManager {
         CURRENT_SESSIONS.remove(player.getUniqueId());
     }
 
+    public static long getOverallPlaytime(Player player){
+        long playtime = 0;
+        JSONArray sessions = SessionManager.getSessions(player);
+        for (int i = 0; i != sessions.length(); i++) {
+            JSONObject session = sessions.getJSONObject(i);
+            if (session.has("playtime")) playtime = playtime + session.getLong("playtime");
+            else {
+                playtime = playtime + (new Date().getTime() - SessionManager.getSession(player).getLong("joined"));
+            }
+        }
+        return playtime;
+    }
+
     public static JSONArray getSessions(Player player) {
         final JSONArray sessions = new JSONArray();
         if (config.getData().has(player.getUniqueId().toString())) {
