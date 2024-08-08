@@ -4,6 +4,8 @@ import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigManager;
 import me.quickscythe.shadowcore.utils.session.SessionManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -36,7 +38,8 @@ public class Heartbeat implements Runnable {
                         playtime = playtime + (new Date().getTime() - SessionManager.getSession(player).getLong("joined"));
                     }
                 }
-                player.sendTitlePart(TitlePart.SUBTITLE, MessageUtils.formatTime(TimeUnit.MINUTES.convert((int) ConfigManager.getVariable("max_session_time"), TimeUnit.MILLISECONDS) - playtime));
+                player.showTitle(Title.title(Component.text(""), MessageUtils.formatTime(TimeUnit.MINUTES.convert((int) ConfigManager.getVariable("max_session_time"), TimeUnit.MILLISECONDS) - playtime)));
+
 //                ShadowUtils.getLogger().log(player.getName() + " has been playing for " + TimeUnit.SECONDS.convert(playtime, TimeUnit.MILLISECONDS) + " seconds.");
 
             }
