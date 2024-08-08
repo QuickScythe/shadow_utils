@@ -1,3 +1,4 @@
 {
-  "msg.test": "This is a test"
+  "msg.test": "This is a test",
+  "msg.test2": "{'text':'This is a json test','color':'#4c4c4c'}"
 }
