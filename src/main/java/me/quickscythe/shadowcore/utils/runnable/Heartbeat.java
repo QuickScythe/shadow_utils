@@ -40,6 +40,9 @@ public class Heartbeat implements Runnable {
                     }
                 }
                 player.sendActionBar(MessageUtils.formatTime(max_session_time - playtime));
+                if(max_session_time - playtime <= 0){
+                    player.kick(Component.text("You've reached your max session time! Thanks for playing!"));
+                }
 //                player.showTitle(Title.title(Component.text(""), MessageUtils.formatTime(max_session_time - playtime), Title.Times.times(Duration.of(0, ChronoUnit.MILLIS), Duration.of(2, ChronoUnit.SECONDS), Duration.of(5, ChronoUnit.MILLIS))));
 
 //                ShadowUtils.getLogger().log(player.getName() + " has been playing for " + TimeUnit.SECONDS.convert(playtime, TimeUnit.MILLISECONDS) + " seconds.");
