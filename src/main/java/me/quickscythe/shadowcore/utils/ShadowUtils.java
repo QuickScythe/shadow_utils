@@ -2,6 +2,7 @@ package me.quickscythe.shadowcore.utils;
 
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
+import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -99,4 +100,7 @@ public class ShadowUtils {
         }
     }
 
+    public static void disable() {
+        ConfigFileManager.saveFiles();
+    }
 }

@@ -16,6 +16,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
+        ShadowUtils.disable();
         // Plugin shutdown logic
     }
 }
