@@ -12,24 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * sdfhksldjfh skdjfh skljdf sdfg dfg dfgdfgjdkfghkdfjgd
- * fgdfgdsfgdjfghkdfjghdkljfghlkjdfghkjdfg
- * dfgfdsgdfsghk;ldfjglksdfgjlkjsdfhlkjghskdjfg dsf gsdf g
- * ds fgd dsf gdksfjgh kdfjhgkj dfhglkj dhflkjghdf kjgdk fg
- * d fgdjfgdfg hkjdfhg jdf
- * gfd sgjhdfkj ghkdfjhg kdjfgh fjkghdkfjghdjkfhgfdgkjd fg
- * df gdkjfgh jkd fhgkjdlfhgskjdgfl jdkfghlskdfg sdjkfg d
- * fg dsjfkgh ;jsdhgkj h;lkdshf ksdJfkl ;hsdiufhei;hsdkjfvh ;ZSKf
- * zsdf kljHSD: fjkZSD FKHDSF; jkSDFh JSD
- * F SB:HDJkf 'SDKJL fhnSKDJ jfk;d
- * SD:HNf JKDSFN kJSDf;kjSDBFLJKBSDF:klj BNDLJKBFKLJDSBFJKljSJNDFKLJSNDF
- * "SD FkNSDF"
- * BNSDfjk n;SKDJfn ;kjsdfn KJSNDf;k jsdkjs: KDbjf sdf
- * '
- * dsnJKf;jsdb f'djkfl jsdbf 'lkjdsbn;fkjnsdbj fklDJbf sjdbf k;sdfk
- * dsjf SD
- * sdn 'flksdnf lkjsdfn lskdnf; kljdfnsklsdn f;kjsdbfj kbds;kfj nsd
- * @implNote No.
+ * ConfigFile is a class for creating custom config files.
  * @author QuickSctythe
  */
 public class ConfigFile implements Config {
@@ -39,11 +22,13 @@ public class ConfigFile implements Config {
     File file;
     JavaPlugin plugin;
 
-    public ConfigFile(JavaPlugin plugin, File file) {
-        this(plugin, file, new JSONObject());
-    }
-
-    public ConfigFile(JavaPlugin plugin, File file, JSONObject defaults) {
+    /**
+     * Generate new ConfigFile instance. Should only be accessed by {@link ConfigFileManager}
+     * @param plugin Plugin that registers the ConfigFile.
+     * @param file Physical location the ConfigFile will be saved to.
+     * @param defaults Default values to populate ConfigFile. Can be empty.
+     */
+     ConfigFile(JavaPlugin plugin, File file, JSONObject defaults) {
         this.plugin = plugin;
         StringBuilder data = new StringBuilder();
         try {
@@ -71,6 +56,10 @@ public class ConfigFile implements Config {
         }
     }
 
+    /**
+     * Gets the plugin that registered the config file. This is also the asset file the config will be saved under.
+     * @return JavaPlugin
+     */
     public JavaPlugin getPlugin(){
         return plugin;
     }
