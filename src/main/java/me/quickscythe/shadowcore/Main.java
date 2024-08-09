@@ -4,8 +4,12 @@ import me.quickscythe.shadowcore.commands.CommandManager;
 import me.quickscythe.shadowcore.listeners.ListenerManager;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json2.JSONObject;
 
 public final class Main extends JavaPlugin {
+
+
+
 
     @Override
     public void onEnable() {
@@ -23,4 +27,6 @@ public final class Main extends JavaPlugin {
         ShadowUtils.disable();
         // Plugin shutdown logic
     }
+
+
 }

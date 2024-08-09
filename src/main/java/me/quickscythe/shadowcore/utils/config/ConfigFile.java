@@ -11,6 +11,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * sdfhksldjfh skdjfh skljdf sdfg dfg dfgdfgjdkfghkdfjgd
+ * fgdfgdsfgdjfghkdfjghdkljfghlkjdfghkjdfg
+ * dfgfdsgdfsghk;ldfjglksdfgjlkjsdfhlkjghskdjfg dsf gsdf g
+ * ds fgd dsf gdksfjgh kdfjhgkj dfhglkj dhflkjghdf kjgdk fg
+ * d fgdjfgdfg hkjdfhg jdf
+ * gfd sgjhdfkj ghkdfjhg kdjfgh fjkghdkfjghdjkfhgfdgkjd fg
+ * df gdkjfgh jkd fhgkjdlfhgskjdgfl jdkfghlskdfg sdjkfg d
+ * fg dsjfkgh ;jsdhgkj h;lkdshf ksdJfkl ;hsdiufhei;hsdkjfvh ;ZSKf
+ * zsdf kljHSD: fjkZSD FKHDSF; jkSDFh JSD
+ * F SB:HDJkf 'SDKJL fhnSKDJ jfk;d
+ * SD:HNf JKDSFN kJSDf;kjSDBFLJKBSDF:klj BNDLJKBFKLJDSBFJKljSJNDFKLJSNDF
+ * "SD FkNSDF"
+ * BNSDfjk n;SKDJfn ;kjsdfn KJSNDf;k jsdkjs: KDbjf sdf
+ * '
+ * dsnJKf;jsdb f'djkfl jsdbf 'lkjdsbn;fkjnsdbj fklDJbf sjdbf k;sdfk
+ * dsjf SD
+ * sdn 'flksdnf lkjsdfn lskdnf; kljdfnsklsdn f;kjsdbfj kbds;kfj nsd
+ * @implNote No.
+ * @author QuickSctythe
+ */
 public class ConfigFile implements Config {
 
     final JSONObject defaults;

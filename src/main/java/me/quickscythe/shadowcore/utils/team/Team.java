@@ -1,24 +1,31 @@
 package me.quickscythe.shadowcore.utils.team;
 
+import me.quickscythe.shadowcore.utils.Jsonifier;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Team {
+
+public class Team extends Jsonifier  {
     List<UUID> members = new ArrayList<>();
     String name;
-    org.bukkit.scoreboard.@NotNull Team scoreboard_team;
+    org.bukkit.scoreboard.Team scoreboard_team;
 
     public Team(String name){
         this.name = name;
-        scoreboard_team = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
+        Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+        scoreboard_team = board.getTeam(name) == null ? board.registerNewTeam(name) : board.getTeam(name);
+        setColor(NamedTextColor.WHITE);
+
+
     }
 
     public void addPlayer(OfflinePlayer player){

@@ -89,6 +89,7 @@ public class UpdateCommand implements ShadowCommand {
             if (in != null) {
                 try {
 
+                    //TODO Make getMessage(<key>) work with placeholders
                     for (File file : ShadowUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
                         if (name.startsWith(plugin)) {
