@@ -97,7 +97,7 @@ public class UpdateCommand implements ShadowCommand {
                             String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
                             Files.deleteIfExists(file.toPath());
                             //<plugin> <version> has veen deleted.
-                            ShadowUtils.getLogger().log(Logger.LogLevel.WARN, MessageUtils.getMessage("msg.test4", ":test:", "&test^"));
+                            ShadowUtils.getLogger().log(Logger.LogLevel.WARN, MessageUtils.getMessage("msg.test4"));
                             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted.", NamedTextColor.YELLOW)).build(), stack.getSender());
                         }
                     }
