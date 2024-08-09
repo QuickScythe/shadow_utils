@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -14,12 +15,12 @@ import static net.kyori.adventure.text.Component.text;
 
 public class Logger {
 
-    private final java.util.logging.@NotNull Logger LOG;
+    private final ComponentLogger LOG;
     private final Plugin plugin;
 
     public Logger(Plugin plugin) {
         this.plugin = plugin;
-        LOG = plugin.getLogger();
+        LOG = plugin.getComponentLogger();
     }
 
     public void log(String msg) {
@@ -46,17 +47,17 @@ public class Logger {
     }
     public void log(LogLevel level, TextComponent msg, CommandSender feedback) {
         level = level == null ? LogLevel.INFO : level;
-        StringBuilder builder = new StringBuilder();
-        builder.append(msg.content());
-        loopComponents(msg, builder);
-        LOG.info(level.getTagString() + " " + builder.toString());
-//        switch(level){
-//            case WARN -> LOG.info(Level.WARNING, msg);
-//            case DEBUG -> LOG.log(Level.FINE, msg);
-//            case ERROR -> LOG.log(Level.SEVERE, msg);
-//            case TRACE -> LOG.log(Level.CONFIG, msg);
-//            default -> LOG.info(msg);
-//        }
+//        StringBuilder builder = new StringBuilder();
+//        builder.append(msg.content());
+//        loopComponents(msg, builder);
+//        LOG.info(level.getTagString() + " " + builder.toString());
+        switch(level){
+            case WARN -> LOG.warn(msg);
+            case DEBUG -> LOG.debug(msg);
+            case ERROR -> LOG.error(msg);
+            case TRACE -> LOG.trace(msg);
+            default -> LOG.info(msg);
+        }
         if (feedback != null) feedback.sendMessage(level.getTag().append(text(" ")).append(msg));
     }
 
