@@ -27,7 +27,6 @@ public class SessionManager extends ConfigClass {
             finishSession(player);
         }
 
-
         config.save();
     }
 

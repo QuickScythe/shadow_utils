@@ -87,7 +87,7 @@ public class MessageUtils extends ConfigClass {
     }
 
 
-    public static Component getMessage(String key, Object... replacements) {
+    public static TextComponent getMessage(String key, Object... replacements) {
         Component text;
         String a = getMessage(key);
         for (int i = 0; i != replacements.length; i++)
@@ -99,7 +99,7 @@ public class MessageUtils extends ConfigClass {
             text = text(a);
         }
 
-        return text;
+        return text().content("").append(text).build();
     }
 
     private static String getMessage(String key) {

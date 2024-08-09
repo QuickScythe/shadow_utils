@@ -1,25 +1,24 @@
 package me.quickscythe.shadowcore.utils.config;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json2.JSONObject;
-
-import java.io.InputStream;
 
 public class ConfigClass {
     protected static ConfigFile config;
 
-    public static void init(String configFile) {
-        config = ConfigFileManager.getFile(configFile);
+    public static void init(JavaPlugin plugin, String configFile) {
+        config = ConfigFileManager.getFile(plugin, configFile);
     }
 
-    public static void init(String configFile, InputStream defaults) {
-        config = ConfigFileManager.getFile(configFile, defaults);
+    public static void init(JavaPlugin plugin, String configFile, String resource) {
+        config = ConfigFileManager.getFile(plugin, configFile, resource);
     }
 
-    public static void init(String configFile, JSONObject defaults) {
-        config = ConfigFileManager.getFile(configFile, defaults);
+    public static void init(JavaPlugin plugin, String configFile, JSONObject defaults) {
+        config = ConfigFileManager.getFile(plugin, configFile, defaults);
     }
 
-    public static void finish(){
+    public static void finish() {
         config.save();
     }
 }

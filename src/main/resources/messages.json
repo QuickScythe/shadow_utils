@@ -1,5 +1,6 @@
 {
   "msg.test": "This is a test",
   "msg.test2": "{'text':'This is a json test','color':'#44cc44'}",
-  "msg.test3": "One more test"
+  "msg.test3": "One more test",
+  "msg.test4": "{\"text\":\"This is a test with placeholders. Placeholder 1: [0] Placeholder 2: [1]\"}"
 }

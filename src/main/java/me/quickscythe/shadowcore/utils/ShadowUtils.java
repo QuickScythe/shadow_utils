@@ -27,11 +27,11 @@ public class ShadowUtils {
         ShadowUtils.plugin = plugin;
         plugin.saveConfig();
         logger = new Logger(plugin);
-        MessageUtils.init("messages", plugin.getResource("messages.json"));
-        SessionManager.init("sessions");
-        ConfigManager.init("config", plugin.getResource("config.json"));
+        MessageUtils.init(plugin, "messages", "messages.json");
+        SessionManager.init(plugin, "sessions");
+        ConfigManager.init(plugin, "config", "config.json");
 
-        LocationManager.init("locations");
+        LocationManager.init(plugin, "locations");
 
         HeartbeatUtils.init();
     }

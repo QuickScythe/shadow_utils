@@ -5,6 +5,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.quickscythe.shadowcore.commands.ShadowCommand;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.Logger;
+import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -82,6 +83,7 @@ public class UpdateCommand implements ShadowCommand {
             String version = args[1];
             String filename = plugin + "-" + version + ".jar";
             String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
+            //Downloading <plugin> <version>...
             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Downloading ", NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), stack.getSender());
             InputStream in = ShadowUtils.downloadFile(url);
             if (in != null) {
@@ -90,13 +92,17 @@ public class UpdateCommand implements ShadowCommand {
                     for (File file : ShadowUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
                         if (name.startsWith(plugin)) {
+                            //Found existing file.
                             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW), stack.getSender());
                             String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
                             Files.deleteIfExists(file.toPath());
-                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted", NamedTextColor.YELLOW)).build(), stack.getSender());
+                            //<plugin> <version> has veen deleted.
+                            ShadowUtils.getLogger().log(Logger.LogLevel.WARN, MessageUtils.getMessage("msg.test4", ":test:", "&test^"));
+                            ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("").append(getStylizedName(plugin, old_version)).append(text(" has been deleted.", NamedTextColor.YELLOW)).build(), stack.getSender());
                         }
                     }
                     ShadowUtils.saveStream(in, new FileOutputStream("plugins/" + filename));
+                    //Finished downloading <plugin> <name>.
                     ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content("Finished downloading ").color(NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text(".", NamedTextColor.WHITE)).build(), stack.getSender());
                 } catch (FileNotFoundException e) {
                     ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
@@ -105,6 +111,7 @@ public class UpdateCommand implements ShadowCommand {
                     throw new RuntimeException(e);
                 }
             } else {
+                //There was an error downloading<plugin> <version>
                 ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, text("There was an error downloading", NamedTextColor.YELLOW).append(text(plugin)), stack.getSender());
             }
 

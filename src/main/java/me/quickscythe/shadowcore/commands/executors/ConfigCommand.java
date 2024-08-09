@@ -58,6 +58,7 @@ public class ConfigCommand implements ShadowCommand {
         }
         if(args[0].equalsIgnoreCase("reset")){
             ConfigFileManager.getFile(args[1]).reset();
+            //<args[1]> has been reset.
             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text().content(args[1]).color(NamedTextColor.WHITE).append(text(" has been reset.", NamedTextColor.WHITE)).build(), stack.getSender());
         }
 

@@ -3,6 +3,7 @@ package me.quickscythe.shadowcore.utils.config;
 
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.Logger;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json2.JSONObject;
 
 import java.io.File;
@@ -15,12 +16,14 @@ public class ConfigFile implements Config {
     final JSONObject defaults;
     JSONObject data;
     File file;
+    JavaPlugin plugin;
 
-    public ConfigFile(File file) {
-        this(file, new JSONObject());
+    public ConfigFile(JavaPlugin plugin, File file) {
+        this(plugin, file, new JSONObject());
     }
 
-    public ConfigFile(File file, JSONObject defaults) {
+    public ConfigFile(JavaPlugin plugin, File file, JSONObject defaults) {
+        this.plugin = plugin;
         StringBuilder data = new StringBuilder();
         try {
             Scanner scanner = new Scanner(file);
@@ -45,6 +48,10 @@ public class ConfigFile implements Config {
             ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, "There was an error saving " + file.getName());
             ShadowUtils.getLogger().log(Logger.LogLevel.ERROR, e);
         }
+    }
+
+    public JavaPlugin getPlugin(){
+        return plugin;
     }
 
     public JSONObject getData() {
