@@ -1,22 +1,29 @@
 package me.quickscythe.shadowcore.utils.team;
 
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Team {
-
     List<UUID> members = new ArrayList<>();
-
     String name;
+    org.bukkit.scoreboard.@NotNull Team scoreboard_team;
+
     public Team(String name){
         this.name = name;
+        scoreboard_team = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
     }
 
     public void addPlayer(OfflinePlayer player){
         members.add(player.getUniqueId());
+        scoreboard_team.addPlayer(player);
     }
 
     public List<UUID> getPlayers(){
@@ -25,5 +32,10 @@ public class Team {
 
     public void removePlayer(OfflinePlayer player){
         members.remove(player.getUniqueId());
+        scoreboard_team.removePlayer(player);
+    }
+
+    public void setColor(NamedTextColor color){
+        scoreboard_team.color(color);
     }
 }
