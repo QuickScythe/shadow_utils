@@ -21,7 +21,7 @@ public class LocationManager extends ConfigClass {
     }
 
     public Location getLocation(String key) {
-        return serialize(CONFIG.getData().getJSONObject(key));
+        return CONFIG.getData().has(key) ? serialize(CONFIG.getData().getJSONObject(key)) : null;
     }
 
     private JSONObject deserialize(Location location) {
