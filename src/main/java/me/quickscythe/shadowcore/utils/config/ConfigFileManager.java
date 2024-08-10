@@ -6,9 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.json2.JSONObject;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ConfigFileManager {
 
@@ -43,12 +41,13 @@ public class ConfigFileManager {
      * {@return New or generated ConfigFile}
      */
     public static ConfigFile getFile(JavaPlugin plugin, String filename, JSONObject defaults) {
-        if (!FILE_MAP.containsKey(filename)) {
+        String key = plugin.getName() + "/" + filename;
+        if (!FILE_MAP.containsKey(key)) {
 //            ShadowUtils.getLogger().log(defaults.toString());
             ShadowUtils.getLogger().log("Getting ConfigFile " + filename);
             ShadowUtils.getLogger().log("Plugin: " + plugin.getName() );
             ShadowUtils.getLogger().log("Path: " + plugin.getDataFolder().toPath());
-            File file = new File(plugin.getDataFolder() + "/" + filename + ".json");
+            File file = new File(key + ".json");
             if (!file.exists()) {
                 try {
                     if(!plugin.getDataFolder().exists())
@@ -61,9 +60,9 @@ public class ConfigFileManager {
                 }
             }
             ConfigFile config = new ConfigFile(plugin, file, defaults);
-            FILE_MAP.put(filename, config);
+            FILE_MAP.put(key, config);
         }
-        return FILE_MAP.get(filename);
+        return FILE_MAP.get(key);
     }
 
 
