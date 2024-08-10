@@ -47,7 +47,7 @@ public class ConfigFileManager {
             ShadowUtils.getLogger().log("Getting ConfigFile " + filename);
             ShadowUtils.getLogger().log("Plugin: " + plugin.getName() );
             ShadowUtils.getLogger().log("Path: " + plugin.getDataFolder().toPath());
-            File file = new File(key + ".json");
+            File file = new File(plugin.getDataFolder() + "/" + filename + ".json");
             if (!file.exists()) {
                 try {
                     if(!plugin.getDataFolder().exists())
