@@ -1,5 +1,6 @@
 package me.quickscythe.shadowcore.utils;
 
+import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigManager;
@@ -15,10 +16,13 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Base64;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class ShadowUtils {
 
     public static JavaPlugin plugin;
     public static Logger logger;
+    public static ShadowVoiceService voiceService;
 
     public static final String JENKINS_URL = "https://ci.vanillaflux.com/";
     public static final String JENKINS_API_ENDPOINT = "api/xml";
@@ -34,6 +38,20 @@ public class ShadowUtils {
         LocationManager.init(plugin, "locations");
 
         HeartbeatUtils.init();
+
+        BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
+        if (service != null) {
+            voiceService = new ShadowVoiceService();
+            service.registerPlugin(voiceService);
+            logger.log("Successfully registered example plugin");
+        } else {
+            logger.log(Logger.LogLevel.WARN, "Failed to register example plugin");
+        }
+
+    }
+
+    public static ShadowVoiceService getVoiceService(){
+        return voiceService;
     }
 
     public static JavaPlugin getPlugin(){
@@ -113,5 +131,10 @@ public class ShadowUtils {
         SessionManager.finish();
         ConfigManager.finish();
         LocationManager.finish();
+
+        if (voiceService != null) {
+            getServer().getServicesManager().unregister(voiceService);
+            logger.log("Successfully unregistered example plugin");
+        }
     }
 }

@@ -9,6 +9,7 @@ repositories {
 
     mavenCentral()
     maven { url "https://jitpack.io" }
+    maven { url = 'https://maven.maxhenkel.de/repository/public' }
     maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
@@ -21,6 +22,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 }
 
 def targetJavaVersion = Integer.parseInt(java_version)
