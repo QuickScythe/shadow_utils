@@ -48,6 +48,9 @@ public class ConfigFileManager {
             File file = new File(plugin.getDataFolder() + "/" + filename + ".json");
             if (!file.exists()) {
                 try {
+                    if(!plugin.getDataFolder().exists())
+                        if(!plugin.getDataFolder().mkdir())
+                            throw new IOException("Couldn't create plugin config folder.");
                     if (!file.createNewFile())
                         throw new IOException("Couldn't create file (" + filename + ".json)");
                 } catch (IOException e) {
