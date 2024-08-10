@@ -4,7 +4,7 @@ main: me.quickscythe.shadowcore.Main
 api-version: '1.21'
 dependencies:
   server:
-    SimpleVoiceChat:
+    voicechat:
       load: AFTER
       required: false
       join-classpath: true
