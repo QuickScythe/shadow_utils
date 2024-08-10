@@ -92,7 +92,7 @@ public class UpdateCommand implements ShadowCommand {
                     //TODO Make getMessage(<key>) work with placeholders
                     for (File file : ShadowUtils.getPlugin().getDataFolder().getParentFile().listFiles()) {
                         String name = file.getName();
-                        if (name.startsWith(plugin)) {
+                        if (name.startsWith(plugin) && file.isFile()) {
                             //Found existing file.
                             ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Found existing file.").color(NamedTextColor.YELLOW), stack.getSender());
                             String old_version = name.replaceAll(plugin + "-", "").replaceAll(".jar", "");
