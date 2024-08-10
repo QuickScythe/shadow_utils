@@ -29,7 +29,11 @@ public class LocationManager extends ConfigClass {
     }
 
     private Location serialize(JSONObject object) {
-        return new Location(Bukkit.getWorld(object.getString("world")), object.getDouble("x"), object.getDouble("y"), object.getDouble("z"), object.getFloat("yaw"), object.getFloat("pitch"));
-    }
+        try {
+            return new Location(Bukkit.getWorld(object.getString("world")), object.getDouble("x"), object.getDouble("y"), object.getDouble("z"), object.getFloat("yaw"), object.getFloat("pitch"));
+        } catch (NullPointerException ex) {
+            return null;
+        }
 
+    }
 }
