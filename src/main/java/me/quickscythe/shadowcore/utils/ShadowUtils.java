@@ -27,15 +27,20 @@ public class ShadowUtils {
     public static final String JENKINS_URL = "https://ci.vanillaflux.com/";
     public static final String JENKINS_API_ENDPOINT = "api/xml";
 
+    public static MessageUtils messageUtils;
+    public static SessionManager sessionManager;
+    public static ConfigManager configManager;
+    public static LocationManager locationManager;
+
     public static void init(JavaPlugin plugin){
         ShadowUtils.plugin = plugin;
         plugin.saveConfig();
         logger = new Logger(plugin);
-        MessageUtils.init(plugin, "messages", "messages.json");
-        SessionManager.init(plugin, "sessions");
-        ConfigManager.init(plugin, "config", "config.json");
+        messageUtils = new MessageUtils(plugin, "messages", "messages.json");
+        sessionManager = new SessionManager(plugin, "sessions");
+        configManager = new ConfigManager(plugin, "config", "config.json");
+        locationManager = new LocationManager(plugin, "locations");
 
-        LocationManager.init(plugin, "locations");
 
         HeartbeatUtils.init();
 
@@ -126,11 +131,27 @@ public class ShadowUtils {
         }
     }
 
+    public static MessageUtils getMessageUtils() {
+        return messageUtils;
+    }
+
+    public static ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public static LocationManager getLocationManager() {
+        return locationManager;
+    }
+
+    public static SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
     public static void disable() {
-        MessageUtils.finish();
-        SessionManager.finish();
-        ConfigManager.finish();
-        LocationManager.finish();
+        messageUtils.finish();
+        sessionManager.finish();
+        configManager.finish();
+        locationManager.finish();
 
         if (voiceService != null) {
             getServer().getServicesManager().unregister(voiceService);

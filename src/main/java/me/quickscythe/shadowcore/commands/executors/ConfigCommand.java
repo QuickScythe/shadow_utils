@@ -53,7 +53,7 @@ public class ConfigCommand implements ShadowCommand {
              *  /config reset <file>
              *  /config set <key> <value>
              */
-            stack.getSender().sendMessage(MessageUtils.getMessage("msg.test2"));
+            stack.getSender().sendMessage(ShadowUtils.getMessageUtils().getMessage("msg.test2"));
             return;
         }
         if(args[0].equalsIgnoreCase("reset")){

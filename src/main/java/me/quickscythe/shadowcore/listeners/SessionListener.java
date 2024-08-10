@@ -16,18 +16,18 @@ public class SessionListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
-        SessionManager.startSession(e.getPlayer());
+        ShadowUtils.getSessionManager().startSession(e.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e){
-        SessionManager.finishSession(e.getPlayer());
+        ShadowUtils.getSessionManager().finishSession(e.getPlayer());
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
         e.getPlayer();
-        JSONObject session = SessionManager.getSession(e.getPlayer());
+        JSONObject session = ShadowUtils.getSessionManager().getSession(e.getPlayer());
         String key = "blocks_mined";
         session.put(key, session.has(key) ? session.getInt(key) + 1 : 1);
     }

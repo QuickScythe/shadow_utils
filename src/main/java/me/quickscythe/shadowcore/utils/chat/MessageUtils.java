@@ -9,6 +9,7 @@ import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.DecimalFormat;
 
@@ -16,7 +17,11 @@ import static net.kyori.adventure.text.Component.text;
 
 public class MessageUtils extends ConfigClass {
 
-    public static String formatDate(long ms) {
+    public MessageUtils(JavaPlugin plugin, String configFile, String resource) {
+        super(plugin, configFile, resource);
+    }
+
+    public String formatDate(long ms) {
 
         int l = (int) (ms / 1000);
         int sec = l % 60;
@@ -50,7 +55,7 @@ public class MessageUtils extends ConfigClass {
     }
 
 
-    public static TextComponent formatTime(long ms) {
+    public TextComponent formatTime(long ms) {
         int l = (int) (ms / 1000);
 
         int sec = l % 60;
@@ -82,12 +87,12 @@ public class MessageUtils extends ConfigClass {
         return text("").append(colorNum("00")).append(col).append(colorNum("00"));
     }
 
-    private static ComponentLike colorNum(String s) {
+    private ComponentLike colorNum(String s) {
         return text(s, NamedTextColor.YELLOW);
     }
 
 
-    public static TextComponent getMessage(String key, Object... replacements) {
+    public TextComponent getMessage(String key, Object... replacements) {
         Component text;
         String a = getMessage(key);
         for (int i = 0; i != replacements.length; i++)
@@ -102,7 +107,7 @@ public class MessageUtils extends ConfigClass {
         return text().content("").append(text).build();
     }
 
-    private static String getMessage(String key) {
+    private String getMessage(String key) {
         return config.getData().has(key) ? (config.getData().getString(key)) : key;
     }
 }
