@@ -1,8 +1,10 @@
 package me.quickscythe.shadowcore.utils.team;
 
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class TeamManager {
 
@@ -20,6 +22,10 @@ public class TeamManager {
 
     public static Team getTeam(String name){
         return TEAMS.getOrDefault(name, null);
+    }
+
+    public static Collection<Team> getTeams(){
+        return TEAMS.values();
     }
 
 
