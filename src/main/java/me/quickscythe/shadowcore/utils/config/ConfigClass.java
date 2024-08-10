@@ -7,14 +7,14 @@ import org.json2.JSONObject;
  * Easier way to specify a class as a ConfigFile manager.
  */
 public class ConfigClass {
-    protected ConfigFile config;
+    protected final ConfigFile CONFIG;
 
     /**
      * @param plugin     Plugin to register ConfigFile.
      * @param configFile String to save file. Do not include file extension.
      */
     public ConfigClass(JavaPlugin plugin, String configFile) {
-        config = ConfigFileManager.getFile(plugin, configFile);
+        CONFIG = ConfigFileManager.getFile(plugin, configFile);
     }
 
     /**
@@ -23,7 +23,7 @@ public class ConfigClass {
      * @param resource   String path to plugin resource. Include file extension.
      */
     public ConfigClass(JavaPlugin plugin, String configFile, String resource) {
-        config = ConfigFileManager.getFile(plugin, configFile, resource);
+        CONFIG = ConfigFileManager.getFile(plugin, configFile, resource);
     }
 
     /**
@@ -32,13 +32,17 @@ public class ConfigClass {
      * @param defaults   JSONObject of default values to populate ConfigFile.
      */
     public ConfigClass(JavaPlugin plugin, String configFile, JSONObject defaults) {
-        config = ConfigFileManager.getFile(plugin, configFile, defaults);
+        CONFIG = ConfigFileManager.getFile(plugin, configFile, defaults);
+    }
+
+    public ConfigFile getConfig(){
+        return CONFIG;
     }
 
     /**
      * Save ConfigFile
      */
     public void finish() {
-        config.save();
+        CONFIG.save();
     }
 }

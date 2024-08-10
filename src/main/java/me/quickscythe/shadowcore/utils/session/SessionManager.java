@@ -27,7 +27,7 @@ public class SessionManager extends ConfigClass {
     }
 
     public ConfigFile getConfig() {
-        return config;
+        return CONFIG;
     }
 
     public void finish() {
@@ -45,7 +45,7 @@ public class SessionManager extends ConfigClass {
     }
 
     public void finishSession(Player player) {
-        JSONObject json = config.getData();
+        JSONObject json = CONFIG.getData();
         if (!json.has(player.getUniqueId().toString())) json.put(player.getUniqueId().toString(), new JSONArray());
         JSONObject session = getSession(player);
         session.put("left", new Date().getTime());
@@ -69,8 +69,8 @@ public class SessionManager extends ConfigClass {
 
     public JSONArray getSessions(Player player) {
         final JSONArray sessions = new JSONArray();
-        if (config.getData().has(player.getUniqueId().toString())) {
-            JSONArray old_ses = config.getData().getJSONArray(player.getUniqueId().toString());
+        if (CONFIG.getData().has(player.getUniqueId().toString())) {
+            JSONArray old_ses = CONFIG.getData().getJSONArray(player.getUniqueId().toString());
             for (int i = 0; i != old_ses.length(); i++)
                 sessions.put(old_ses.getJSONObject(i));
         }

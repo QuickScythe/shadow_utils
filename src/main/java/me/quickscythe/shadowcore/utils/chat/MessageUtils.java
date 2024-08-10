@@ -1,9 +1,6 @@
 package me.quickscythe.shadowcore.utils.chat;
 
-import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigClass;
-import me.quickscythe.shadowcore.utils.config.ConfigFile;
-import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextComponent;
@@ -108,6 +105,6 @@ public class MessageUtils extends ConfigClass {
     }
 
     private String getMessage(String key) {
-        return config.getData().has(key) ? (config.getData().getString(key)) : key;
+        return CONFIG.getData().has(key) ? (CONFIG.getData().getString(key)) : key;
     }
 }

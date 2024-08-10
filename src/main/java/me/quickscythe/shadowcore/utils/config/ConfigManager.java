@@ -1,6 +1,5 @@
 package me.quickscythe.shadowcore.utils.config;
 
-import me.quickscythe.shadowcore.utils.ShadowUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConfigManager extends ConfigClass {
@@ -11,11 +10,11 @@ public class ConfigManager extends ConfigClass {
     }
 
     public Object getVariable(String key){
-        return config.getData().get(key);
+        return CONFIG.getData().get(key);
     }
 
     public void setVariable(String key, Object val){
-        config.getData().put(key, val);
+        CONFIG.getData().put(key, val);
     }
 
 

@@ -13,15 +13,15 @@ public class LocationManager extends ConfigClass {
     }
 
     public void addLocation(String key, Location location) {
-        config.getData().put(key, deserialize(location));
+        CONFIG.getData().put(key, deserialize(location));
     }
 
     public void removeLocation(String key) {
-        config.getData().remove(key);
+        CONFIG.getData().remove(key);
     }
 
     public Location getLocation(String key) {
-        return serialize(config.getData().getJSONObject(key));
+        return serialize(CONFIG.getData().getJSONObject(key));
     }
 
     private JSONObject deserialize(Location location) {
