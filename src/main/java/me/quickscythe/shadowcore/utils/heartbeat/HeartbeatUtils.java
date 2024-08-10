@@ -14,7 +14,7 @@ public class HeartbeatUtils {
 
     public static void init() {
         heartbeat = new Heartbeat(ShadowUtils.getPlugin());
-        Bukkit.getScheduler().runTaskLaterAsynchronously(ShadowUtils.getPlugin(), heartbeat, 30);
+        Bukkit.getScheduler().runTaskLater(ShadowUtils.getPlugin(), heartbeat, 30);
     }
 
     public static Heartbeat getHeartbeat(){

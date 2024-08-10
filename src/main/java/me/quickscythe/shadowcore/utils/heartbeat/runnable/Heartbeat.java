@@ -42,7 +42,7 @@ public class Heartbeat implements Runnable {
             }
 
 
-            Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, this, 5);
+            Bukkit.getScheduler().runTaskLater(plugin, this, 5);
         }
     }
 
