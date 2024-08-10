@@ -46,6 +46,7 @@ public class ConfigFile implements Config {
     }
 
     public void save() {
+         ShadowUtils.getLogger().log("Saving " + plugin.getName() + "/" + file.getName());
         try {
             FileWriter f2 = new FileWriter(file, false);
             f2.write(data.toString(2));
