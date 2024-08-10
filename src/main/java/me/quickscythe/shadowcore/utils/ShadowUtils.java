@@ -52,7 +52,7 @@ public class ShadowUtils {
             return true;
         });
 
-        if(Bukkit.getPluginManager().isPluginEnabled("SimpleVoiceChat")) {
+        if(Bukkit.getPluginManager().isPluginEnabled("voicechat")) {
             BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
             if (service != null) {
                 voiceService = new ShadowVoiceService();
