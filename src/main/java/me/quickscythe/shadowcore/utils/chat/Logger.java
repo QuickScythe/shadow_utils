@@ -16,10 +16,8 @@ import static net.kyori.adventure.text.Component.text;
 public class Logger {
 
     private final ComponentLogger LOG;
-    private final Plugin plugin;
 
     public Logger(Plugin plugin) {
-        this.plugin = plugin;
         LOG = plugin.getComponentLogger();
     }
 
@@ -59,16 +57,6 @@ public class Logger {
             default -> LOG.info(msg);
         }
         if (feedback != null) feedback.sendMessage(level.getTag().append(text(" ")).append(msg));
-    }
-
-    private void loopComponents(TextComponent msg, StringBuilder builder) {
-        for(Component comp : msg.children()){
-            if(comp instanceof TextComponent tcomp){
-                if(!tcomp.children().isEmpty())
-                    loopComponents(tcomp, builder);
-                builder.append(tcomp.content());
-            }
-        }
     }
 
 

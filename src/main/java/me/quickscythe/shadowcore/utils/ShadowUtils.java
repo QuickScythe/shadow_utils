@@ -39,7 +39,7 @@ public class ShadowUtils {
         ShadowUtils.plugin = plugin;
         plugin.saveConfig();
         logger = new Logger(plugin);
-        messageUtils = new MessageUtils(plugin, "messages", "messages.json");
+        messageUtils = new MessageUtils(plugin);
         sessionManager = new SessionManager(plugin, "sessions");
         configManager = new ConfigManager(plugin, "config", "config.json");
         locationManager = new LocationManager(plugin, "locations");

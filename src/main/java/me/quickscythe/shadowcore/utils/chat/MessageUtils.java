@@ -14,8 +14,8 @@ import static net.kyori.adventure.text.Component.text;
 
 public class MessageUtils extends ConfigClass {
 
-    public MessageUtils(JavaPlugin plugin, String configFile, String resource) {
-        super(plugin, configFile, resource);
+    public MessageUtils(JavaPlugin plugin) {
+        super(plugin, "messages", "messages.json");
     }
 
     public String formatDate(long ms) {
