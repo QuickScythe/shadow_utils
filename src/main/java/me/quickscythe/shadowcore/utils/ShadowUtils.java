@@ -5,7 +5,10 @@ import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigManager;
 import me.quickscythe.shadowcore.utils.heartbeat.HeartbeatUtils;
+import me.quickscythe.shadowcore.utils.occasion.Occasion;
+import me.quickscythe.shadowcore.utils.occasion.OccasionManager;
 import me.quickscythe.shadowcore.utils.session.SessionManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -44,13 +47,22 @@ public class ShadowUtils {
 
         HeartbeatUtils.init();
 
-        BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
-        if (service != null) {
-            voiceService = new ShadowVoiceService();
-            service.registerPlugin(voiceService);
-            logger.log("Successfully registered example plugin");
+        HeartbeatUtils.getHeartbeat().addFlutter(()->{
+            OccasionManager.flutter();
+            return true;
+        });
+
+        if(Bukkit.getPluginManager().isPluginEnabled("SimpleVoiceChat")) {
+            BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
+            if (service != null) {
+                voiceService = new ShadowVoiceService();
+                service.registerPlugin(voiceService);
+                logger.log("Successfully registered example plugin");
+            } else {
+                logger.log(Logger.LogLevel.WARN, "Failed to register example plugin");
+            }
         } else {
-            logger.log(Logger.LogLevel.WARN, "Failed to register example plugin");
+            logger.log(Logger.LogLevel.WARN, "Couldn't find Simple Voice Chat. Disabling Voice Chat features.");
         }
 
     }

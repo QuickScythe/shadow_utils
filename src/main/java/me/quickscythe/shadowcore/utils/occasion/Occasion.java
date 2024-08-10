@@ -4,6 +4,8 @@ import org.json2.JSONObject;
 
 public interface Occasion {
 
+    boolean started();
+
     boolean start();
 
     boolean check();

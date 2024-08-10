@@ -1,22 +1,31 @@
 package me.quickscythe.shadowcore.utils.occasion;
 
-import me.quickscythe.shadowcore.utils.config.ConfigClass;
-import me.quickscythe.shadowcore.utils.config.ConfigFile;
-import me.quickscythe.shadowcore.utils.config.ConfigFileManager;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.json2.JSONObject;
+import java.util.*;
 
-public class OccasionManager extends ConfigClass {
+public class OccasionManager {
 
-    public OccasionManager(JavaPlugin plugin, String configFile) {
-        super(plugin, configFile);
+    final static Map<String, Occasion> OCCASIONS = new HashMap<>();
+    final static List<String> OCCASIONS_REMOVE = new ArrayList<>();
+    final static Map<String, Occasion> OCCASIONS_ADD = new HashMap<>();
+
+    public static void registerOccasion(String key, Occasion occasion) {
+        OCCASIONS_ADD.put(key, occasion);
     }
 
-    public OccasionManager(JavaPlugin plugin, String configFile, String resource) {
-        super(plugin, configFile, resource);
+    public static Collection<Occasion> getOccasions() {
+        return OCCASIONS.values();
     }
 
-    public OccasionManager(JavaPlugin plugin, String configFile, JSONObject defaults) {
-        super(plugin, configFile, defaults);
+    public static void flutter() {
+        OCCASIONS.putAll(OCCASIONS_ADD);
+        OCCASIONS_ADD.clear();
+        for (String key : OCCASIONS_REMOVE)
+            OCCASIONS.remove(key);
+        for (Map.Entry<String, Occasion> entry : OCCASIONS.entrySet()) {
+            if (entry.getValue().started() && entry.getValue().check()) {
+                entry.getValue().end();
+                OCCASIONS_REMOVE.add(entry.getKey());
+            }
+        }
     }
 }
