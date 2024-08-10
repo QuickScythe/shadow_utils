@@ -12,5 +12,7 @@ public interface Occasion {
 
     boolean end();
 
+    boolean finished();
+
     JSONObject toJson();
 }

@@ -51,7 +51,7 @@ public class ConfigCommand implements ShadowCommand {
              * todo
              *  /config
              *  /config reset <file>
-             *  /config set <key> <value>
+             *  /config set <file> <key> <value>
              */
             stack.getSender().sendMessage(ShadowUtils.getMessageUtils().getMessage("msg.test2"));
             return;

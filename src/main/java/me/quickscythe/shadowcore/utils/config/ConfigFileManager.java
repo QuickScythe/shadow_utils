@@ -43,10 +43,6 @@ public class ConfigFileManager {
     public static ConfigFile getFile(JavaPlugin plugin, String filename, JSONObject defaults) {
         String key = plugin.getName() + "/" + filename;
         if (!FILE_MAP.containsKey(key)) {
-//            ShadowUtils.getLogger().log(defaults.toString());
-            ShadowUtils.getLogger().log("Getting ConfigFile " + filename);
-            ShadowUtils.getLogger().log("Plugin: " + plugin.getName() );
-            ShadowUtils.getLogger().log("Path: " + plugin.getDataFolder().toPath());
             File file = new File(plugin.getDataFolder() + "/" + filename + ".json");
             if (!file.exists()) {
                 try {
