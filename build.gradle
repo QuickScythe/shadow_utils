@@ -1,6 +1,11 @@
+import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
+
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
+    id ("io.papermc.paperweight.userdev") version "1.7.2"
+    id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
+    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1"
 }
 
 
@@ -21,7 +26,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+//    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 }
 
@@ -59,4 +65,31 @@ publishing {
             from components.java
         }
     }
+}
+tasks.assemble {
+    dependsOn(tasks.reobfJar)
+}
+tasks {
+    compileJava {
+        // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
+        // See https://openjdk.java.net/jeps/247 for more information.
+        options.release = 21
+    }
+
+    // Only relevant when going with option 2 above
+    /*
+    reobfJar {
+      // This is an example of how you might change the output location for reobfJar. It's recommended not to do this
+      // for a variety of reasons, however it's asked frequently enough that an example of how to do it is included here.
+      outputJar = layout.buildDirectory.file("libs/PaperweightTestPlugin-${project.version}.jar")
+    }
+     */
+}
+// Configure plugin.yml generation
+// - name, version, and description are inherited from the Gradle project.
+bukkitPluginYaml {
+    main.set("me.quickscythe.shadowutils.HauntedHavoc")
+    load.set(BukkitPluginYaml.PluginLoadOrder.STARTUP)
+    authors.add("${author}")
+    apiVersion.set("${minecraft_version}")
 }

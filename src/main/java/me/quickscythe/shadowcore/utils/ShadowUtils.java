@@ -1,14 +1,20 @@
 package me.quickscythe.shadowcore.utils;
 
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
+import io.papermc.paper.registry.RegistryKey;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigManager;
+import me.quickscythe.shadowcore.utils.entity.CustomEntityRegistry;
+import me.quickscythe.shadowcore.utils.entity.CustomZombie;
 import me.quickscythe.shadowcore.utils.heartbeat.HeartbeatUtils;
 import me.quickscythe.shadowcore.utils.occasion.Occasion;
 import me.quickscythe.shadowcore.utils.occasion.OccasionManager;
 import me.quickscythe.shadowcore.utils.session.SessionManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Registry;
+import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -43,10 +49,7 @@ public class ShadowUtils {
         sessionManager = new SessionManager(plugin, "sessions");
         configManager = new ConfigManager(plugin, "config", "config.json");
         locationManager = new LocationManager(plugin, "locations");
-
         RegistryUtils.init();
-
-
         HeartbeatUtils.init();
 
         HeartbeatUtils.getHeartbeat().addFlutter(()->{
