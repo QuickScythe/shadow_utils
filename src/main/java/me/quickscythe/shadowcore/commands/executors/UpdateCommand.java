@@ -78,8 +78,9 @@ public class UpdateCommand implements ShadowCommand {
 
     @Override
     public void execute(@NotNull CommandSourceStack stack, @NotNull String[] args) {
-        if (args.length == 2) {
+        if (args.length >= 2) {
             String plugin = args[0];
+//            String version = args.length >= 2 ? args[1] : latest;
             String version = args[1];
             String filename = plugin + "-" + version + ".jar";
             String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
@@ -121,6 +122,10 @@ public class UpdateCommand implements ShadowCommand {
             stack.getSender().sendMessage("Usage: /update <plugin> <version>");
         }
 
+
+    }
+
+    private String getLatestVersion(String plugin){
 
     }
 
