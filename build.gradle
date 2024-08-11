@@ -69,3 +69,10 @@ publishing {
 tasks.assemble {
     dependsOn(tasks.reobfJar)
 }
+
+bukkitPluginYaml {
+    main.set("me.quickscythe.shadowutils.Main")
+    load.set(BukkitPluginYaml.PluginLoadOrder.STARTUP)
+    authors.add("${author}")
+    apiVersion.set("1.21")
+}
