@@ -44,6 +44,8 @@ public class ShadowUtils {
         configManager = new ConfigManager(plugin, "config", "config.json");
         locationManager = new LocationManager(plugin, "locations");
 
+        RegistryUtils.init();
+
 
         HeartbeatUtils.init();
 

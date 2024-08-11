@@ -1,6 +1,8 @@
 package me.quickscythe.shadowcore.utils.team;
 
 
+import org.bukkit.OfflinePlayer;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +14,14 @@ public class TeamManager {
 
     public static void init(){
 
+    }
+
+    public static Team getTeam(OfflinePlayer player){
+        for(Team team : getTeams()){
+            if(team.hasPlayer(player))
+                return team;
+        }
+        return null;
     }
 
     public static Team registerTeam(String name){

@@ -29,6 +29,10 @@ public class Team extends Jsonifier  {
     }
 
     public void addPlayer(OfflinePlayer player){
+        for(Team team : TeamManager.getTeams())
+            if(team.hasPlayer(player))
+                team.removePlayer(player);
+
         members.add(player.getUniqueId());
         scoreboard_team.addPlayer(player);
     }
@@ -44,5 +48,9 @@ public class Team extends Jsonifier  {
 
     public void setColor(NamedTextColor color){
         scoreboard_team.color(color);
+    }
+
+    public boolean hasPlayer(OfflinePlayer player) {
+        return members.contains(player.getUniqueId());
     }
 }
