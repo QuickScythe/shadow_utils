@@ -125,9 +125,9 @@ public class UpdateCommand implements ShadowCommand {
 
     }
 
-    private String getLatestVersion(String plugin){
-
-    }
+//    private String getLatestVersion(String plugin){
+//
+//    }
 
     private Component getStylizedName(String plugin, String version) {
         TextColor AQUA = NamedTextColor.AQUA;
