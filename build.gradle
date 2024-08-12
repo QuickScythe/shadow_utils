@@ -3,8 +3,8 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-//    id ("io.papermc.paperweight.userdev") version "1.7.2"
-//    id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
+    id ("io.papermc.paperweight.userdev") version "1.7.2"
+    id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
 //    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1"
 }
 
@@ -27,8 +27,8 @@ repositories {
 
 dependencies {
 
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-//    paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
+//    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 
 }
@@ -72,6 +72,12 @@ publishing {
 //    dependsOn(tasks.reobfJar)
 //    paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
 //}
+
+tasks {
+    assemble {
+        dependsOn("reobfJar")
+    }
+}
 
 //bukkitPluginYaml {
 //    main.set("me.quickscythe.shadowutils.Main")
