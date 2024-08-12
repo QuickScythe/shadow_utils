@@ -26,8 +26,8 @@ repositories {
 }
 
 dependencies {
-//    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+//    paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 }
 
