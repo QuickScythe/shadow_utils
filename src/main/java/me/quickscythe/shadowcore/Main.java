@@ -16,7 +16,6 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         ShadowUtils.init(this);
         CommandManager.init();
-
         ListenerManager.init();
 
     }
