@@ -43,7 +43,7 @@ dependencies {
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 
 }
-paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.getREOBF_PRODUCTION()
+paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.getMOJANG_PRODUCTION()
 def targetJavaVersion = Integer.parseInt(java_version)
 java {
     withSourcesJar()
