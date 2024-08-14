@@ -14,14 +14,14 @@ import java.util.Map;
 
 public class CustomEntityRegistry {
 
-    private final Map<String, Class<? extends Mob>> REGISTRY = new HashMap<>();
+    private final Map<String, Class> REGISTRY = new HashMap<>();
     private final JavaPlugin plugin;
 
     public CustomEntityRegistry(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public void register(String key, Class<? extends Mob> clazz){
+    public void register(String key, Class clazz){
         REGISTRY.put(key, clazz);
     }
 
@@ -29,7 +29,7 @@ public class CustomEntityRegistry {
         try {
             Level world = ((CraftWorld) loc.getWorld()).getHandle();
 
-            Mob instance = getClass(key).getConstructor(Level.class).newInstance(world);
+            Mob instance = (Mob) getClass(key).getConstructor(Level.class).newInstance(world);
             instance.setPos(loc.getX(), loc.getY(), loc.getZ());
             world.addFreshEntity(instance);
             return instance;
@@ -41,7 +41,7 @@ public class CustomEntityRegistry {
         return null;
     }
 
-    public Class<? extends Mob> getClass(String key){
+    public Class getClass(String key){
         return REGISTRY.get(key);
     }
 

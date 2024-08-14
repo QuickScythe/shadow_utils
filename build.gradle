@@ -1,12 +1,12 @@
+import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
+
 //import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {
     id 'java-library'
     id 'maven-publish'
     id ("io.papermc.paperweight.userdev") version "1.7.2"
-    id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
-    id "signing"
+//    id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
 //    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1"
 }
 
@@ -43,16 +43,7 @@ dependencies {
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 
 }
-nexusPublishing {
-    repositories {
-        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
-            nexusUrl.set(uri("https://repo.vanillaflux.com/"))
-//            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set("${repo_user}")
-            password.set("${repo_password}")
-        }
-    }
-}
+paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.getREOBF_PRODUCTION()
 def targetJavaVersion = Integer.parseInt(java_version)
 java {
     withSourcesJar()
@@ -103,7 +94,10 @@ publishing {
 
 tasks {
     assemble {
+
         dependsOn("reobfJar")
+
+
     }
 }
 
