@@ -25,20 +25,9 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
-
-    maven {
-        name = "nexus"
-        url = "nexus(https://repo.vanillaflux.com/repository/shadow_utils)"
-//        credentials {
-//                username project.repo_user
-//                password project.repo_password
-//            }
-    }
 }
 
 dependencies {
-
-//    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
     paperweight.paperDevBundle("${minecraft_version}-${paper_build}")
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 
@@ -87,23 +76,3 @@ publishing {
         }
     }
 }
-//tasks.publishToMavenLocal {
-//    dependsOn(tasks.reobfJar)
-//    paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
-//}
-
-tasks {
-    assemble {
-
-        dependsOn("reobfJar")
-
-
-    }
-}
-
-//bukkitPluginYaml {
-//    main.set("me.quickscythe.shadowutils.Main")
-//    load.set(BukkitPluginYaml.PluginLoadOrder.STARTUP)
-//    authors.add("${author}")
-//    apiVersion.set("1.21")
-//}
