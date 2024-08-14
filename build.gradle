@@ -5,6 +5,8 @@ plugins {
     id 'maven-publish'
     id ("io.papermc.paperweight.userdev") version "1.7.2"
     id("xyz.jpenilla.run-paper") version "2.3.0" // Adds runServer and runMojangMappedServer tasks for testing
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id "signing"
 //    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.1.1"
 }
 
@@ -23,6 +25,15 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+
+    maven {
+        name = "nexus"
+        url = "nexus(https://repo.vanillaflux.com/repository/shadow_utils)"
+//        credentials {
+//                username project.repo_user
+//                password project.repo_password
+//            }
+    }
 }
 
 dependencies {
@@ -32,7 +43,16 @@ dependencies {
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
 
 }
-
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://repo.vanillaflux.com/"))
+//            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username.set("${repo_user}")
+            password.set("${repo_password}")
+        }
+    }
+}
 def targetJavaVersion = Integer.parseInt(java_version)
 java {
     withSourcesJar()
@@ -62,9 +82,17 @@ processResources {
     }
 }
 publishing {
+
     publications {
         maven(MavenPublication) {
             from components.java
+
+        }
+    }
+    repositories {
+        maven {
+            name = 'localRepo'
+            url = layout.buildDirectory.dir("repo")
         }
     }
 }
@@ -74,7 +102,7 @@ publishing {
 //}
 
 tasks {
-    publishToMavenLocal {
+    assemble {
         dependsOn("reobfJar")
     }
 }
