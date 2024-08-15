@@ -1,6 +1,7 @@
 package me.quickscythe.shadowcore.utils.team;
 
 import me.quickscythe.shadowcore.utils.Jsonifier;
+import me.quickscythe.shadowcore.utils.ShadowUtils;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -26,7 +27,7 @@ public class Team extends Jsonifier {
     }
 
     public void addPlayer(OfflinePlayer player) {
-        for (Team team : TeamManager.getTeams())
+        for (Team team : ShadowUtils.getTeamManager().getTeams())
             if (team.hasPlayer(player))
                 team.removePlayer(player);
 
