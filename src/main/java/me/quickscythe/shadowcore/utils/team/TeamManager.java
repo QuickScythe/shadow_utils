@@ -18,6 +18,14 @@ public class TeamManager extends ConfigClass {
         super(plugin, "teams");
     }
 
+    @Override
+    public void finish() {
+        for(Map.Entry<String, Team> entry : TEAMS.entrySet()){
+            CONFIG.getData().put(entry.getKey(), entry.getValue().toJson());
+        }
+        super.finish();
+    }
+
     public void init(){
 
     }

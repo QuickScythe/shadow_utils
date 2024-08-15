@@ -13,9 +13,9 @@ import java.util.UUID;
 
 
 public class Team extends Jsonifier {
-    List<UUID> members = new ArrayList<>();
-    String name;
-    org.bukkit.scoreboard.Team scoreboard_team;
+    public final List<UUID> members = new ArrayList<>();
+    public final String name;
+    private final org.bukkit.scoreboard.Team scoreboard_team;
 
     public Team(String name) {
         this.name = name;
