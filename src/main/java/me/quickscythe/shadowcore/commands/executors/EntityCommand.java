@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Map;
 
+import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 import static io.papermc.paper.command.brigadier.Commands.argument;
 import static io.papermc.paper.command.brigadier.Commands.literal;
 
@@ -26,16 +27,20 @@ public class EntityCommand extends ShadowCommand {
         return literal(getName())
                 .executes(context -> {
                     context.getSource().getSender().sendMessage("Usage: /customentity <entity>");
-                    return Command.SINGLE_SUCCESS;
+                    return SINGLE_SUCCESS;
                 })
                 .then(argument("entity", StringArgumentType.greedyString())
                         .suggests((context, builder) -> {
                             for(Map.Entry<String, CustomEntityRegistry> regs : RegistryUtils.getEntityRegistries().entrySet()){
                                 for(Map.Entry<String, Class<? extends Entity>> reg : regs.getValue().getRegistry().entrySet()){
-                                    builder.suggest(regs.getKey() + ":" + regs.getValue());
+                                    builder.suggest(regs.getKey() + ":" + reg.getKey());
                                 }
                             }
                             return builder.buildFuture();
+                        })
+                        .executes(context -> {
+
+                            return SINGLE_SUCCESS;
                         })).build();
     }
 }
