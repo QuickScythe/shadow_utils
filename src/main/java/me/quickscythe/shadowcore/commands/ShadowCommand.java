@@ -30,7 +30,7 @@ public class ShadowCommand {
     }
 
     public LiteralCommandNode<CommandSourceStack> getNode() {
-        return Commands.literal("new-command").executes(ctx -> {
+        return Commands.literal(getName()).executes(ctx -> {
             ctx.getSource().getSender().sendPlainMessage("some message");
             return Command.SINGLE_SUCCESS;
         }).build();
