@@ -179,6 +179,7 @@ public class ShadowUtils {
         sessionManager.finish();
         configManager.finish();
         locationManager.finish();
+        teamManager.finish();
 
         if (voiceService != null) {
             getServer().getServicesManager().unregister(voiceService);
