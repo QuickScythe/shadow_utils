@@ -18,7 +18,7 @@ public class CommandManager {
     public static void init(){
 
         new CommandBuilder(new UpdateCommand(ShadowUtils.getPlugin())).setDescription("Test desc").setAliases("getnew").register();
-//        new CommandBuilder("config", new ConfigCommand(ShadowUtils.getPlugin())).setDescription("Edit ShadowCore config files").register();
+        new CommandBuilder(new ConfigCommand(ShadowUtils.getPlugin())).setDescription("Edit ShadowCore config files").register();
     }
 
     public static class CommandBuilder {
