@@ -29,7 +29,7 @@ public class CustomEntityRegistry {
             Object world = loc.getWorld().getClass().getMethod("getHandle").invoke(loc.getWorld());
 
             Entity instance = getClass(key).getConstructor(Level.class).newInstance(world);
-            instance.getClass().getMethod("setPos", Double.class, Double.class, Double.class).invoke(instance, loc.getX(), loc.getY(), loc.getZ());
+            instance.getClass().getMethod("setPos", double.class, double.class, double.class).invoke(instance, loc.getX(), loc.getY(), loc.getZ());
 //            instance.setPos(loc.getX(), loc.getY(), loc.getZ());
             world.getClass().getMethod("addFreshEntity", Entity.class).invoke(world, instance);
 
