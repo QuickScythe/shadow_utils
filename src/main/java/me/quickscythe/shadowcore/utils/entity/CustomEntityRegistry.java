@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomEntityRegistry {
+ public class CustomEntityRegistry {
 
     private final Map<String, Class<? extends Entity>> REGISTRY = new HashMap<>();
     private final JavaPlugin plugin;
@@ -22,6 +22,10 @@ public class CustomEntityRegistry {
 
     public void register(String key, Class<? extends Entity> clazz){
         REGISTRY.put(key, clazz);
+    }
+
+    public Map<String, Class<? extends Entity>> getRegistry(){
+        return REGISTRY;
     }
 
     public Entity spawn(String key, Location loc){

@@ -1,8 +1,7 @@
-package me.quickscythe.shadowcore.utils;
+package me.quickscythe.shadowcore.utils.entity;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
-import me.quickscythe.shadowcore.utils.entity.CustomEntityRegistry;
 import org.bukkit.Keyed;
 import org.bukkit.Registry;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,5 +29,9 @@ public class RegistryUtils {
     public static CustomEntityRegistry newEntityRegistry(JavaPlugin plugin) {
         CER_MAP.put(plugin.getName(), new CustomEntityRegistry(plugin));
         return CER_MAP.get(plugin.getName());
+    }
+
+    public static Map<String, CustomEntityRegistry> getEntityRegistries() {
+        return CER_MAP;
     }
 }

@@ -4,6 +4,7 @@ import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigManager;
+import me.quickscythe.shadowcore.utils.entity.RegistryUtils;
 import me.quickscythe.shadowcore.utils.heartbeat.HeartbeatUtils;
 import me.quickscythe.shadowcore.utils.occasion.OccasionManager;
 import me.quickscythe.shadowcore.utils.session.SessionManager;

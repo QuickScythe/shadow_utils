@@ -5,6 +5,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import me.quickscythe.shadowcore.commands.executors.ConfigCommand;
+import me.quickscythe.shadowcore.commands.executors.EntityCommand;
 import me.quickscythe.shadowcore.commands.executors.UpdateCommand;
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import org.bukkit.plugin.Plugin;
@@ -19,6 +20,7 @@ public class CommandManager {
 
         new CommandBuilder(new UpdateCommand(ShadowUtils.getPlugin())).setDescription("Test desc").setAliases("getnew").register();
         new CommandBuilder(new ConfigCommand(ShadowUtils.getPlugin())).setDescription("Edit ShadowCore config files").register();
+        new CommandBuilder(new EntityCommand(ShadowUtils.getPlugin())).setDescription("Edit ShadowCore config files").setAliases("centity","ientity", "ce", "ie").register();
     }
 
     public static class CommandBuilder {
