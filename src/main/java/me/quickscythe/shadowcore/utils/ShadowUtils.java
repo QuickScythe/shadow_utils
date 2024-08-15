@@ -70,21 +70,18 @@ public class ShadowUtils {
 
     }
 
-    public static ShadowVoiceService registerVoiceService(JavaPlugin plugin) {
+    public static void registerVoiceService(ShadowVoiceService voiceService) {
         if (Bukkit.getPluginManager().isPluginEnabled("voicechat")) {
             BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
             if (service != null) {
-                ShadowVoiceService voiceService = new ShadowVoiceService();
                 service.registerPlugin(voiceService);
                 logger.log("Successfully registered example plugin");
-                return voiceService;
             } else {
                 logger.log(Logger.LogLevel.WARN, "Failed to register example plugin");
             }
         } else {
             logger.log(Logger.LogLevel.WARN, "Couldn't find Simple Voice Chat. Disabling Voice Chat features.");
         }
-        return null;
     }
 
     public static ShadowVoiceService getVoiceService() {
