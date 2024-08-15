@@ -2,6 +2,7 @@ package me.quickscythe.shadowcore.utils.entity;
 
 import me.quickscythe.shadowcore.utils.ShadowUtils;
 import me.quickscythe.shadowcore.utils.chat.Logger;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,23 +13,26 @@ import java.util.Map;
 
 public class CustomEntityRegistry {
 
-    private final Map<String, Class<CustomMob>> REGISTRY = new HashMap<>();
+    private final Map<String, Class<? extends Entity>> REGISTRY = new HashMap<>();
     private final JavaPlugin plugin;
 
     public CustomEntityRegistry(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public void register(String key, Class<CustomMob> clazz){
+    public void register(String key, Class<? extends Entity> clazz){
         REGISTRY.put(key, clazz);
     }
 
-    public CustomMob spawn(String key, Location loc){
+    public Entity spawn(String key, Location loc){
         try {
-            Level world = (Level) loc.getWorld().getClass().getMethod("getHandle").invoke(loc.getWorld());
+            Object world = loc.getWorld().getClass().getMethod("getHandle").invoke(loc.getWorld());
 
-            CustomMob instance = getClass(key).getConstructor(Level.class).newInstance(world);
+            Entity instance = getClass(key).getConstructor(Level.class).newInstance(world);
+            instance.getClass().getMethod("setPos", Double.class, Double.class, Double.class).invoke(instance, loc.getX(), loc.getY(), loc.getZ());
 //            instance.setPos(loc.getX(), loc.getY(), loc.getZ());
+            world.getClass().getMethod("addFreshEntity", Entity.class).invoke(world, instance);
+
 //            world.addFreshEntity(instance);
             return instance;
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
@@ -39,7 +43,7 @@ public class CustomEntityRegistry {
         return null;
     }
 
-    public Class<CustomMob> getClass(String key){
+    public Class<? extends Entity> getClass(String key){
         return REGISTRY.get(key);
     }
 

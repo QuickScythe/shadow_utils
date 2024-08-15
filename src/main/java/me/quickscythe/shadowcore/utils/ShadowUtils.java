@@ -1,20 +1,14 @@
 package me.quickscythe.shadowcore.utils;
 
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
-import io.papermc.paper.registry.RegistryKey;
 import me.quickscythe.shadowcore.utils.chat.Logger;
 import me.quickscythe.shadowcore.utils.chat.MessageUtils;
 import me.quickscythe.shadowcore.utils.config.ConfigManager;
-import me.quickscythe.shadowcore.utils.entity.CustomEntityRegistry;
-import me.quickscythe.shadowcore.utils.entity.CustomZombie;
 import me.quickscythe.shadowcore.utils.heartbeat.HeartbeatUtils;
-import me.quickscythe.shadowcore.utils.occasion.Occasion;
 import me.quickscythe.shadowcore.utils.occasion.OccasionManager;
 import me.quickscythe.shadowcore.utils.session.SessionManager;
+import me.quickscythe.shadowcore.utils.team.TeamManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Registry;
-import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.FileOutputStream;
@@ -29,19 +23,22 @@ import static org.bukkit.Bukkit.getServer;
 
 public class ShadowUtils {
 
+    public static final String JENKINS_URL = "https://ci.vanillaflux.com/";
+    public static final String JENKINS_API_ENDPOINT = "api/xml";
     public static JavaPlugin plugin;
     public static Logger logger;
     public static ShadowVoiceService voiceService;
-
-    public static final String JENKINS_URL = "https://ci.vanillaflux.com/";
-    public static final String JENKINS_API_ENDPOINT = "api/xml";
-
     public static MessageUtils messageUtils;
     public static SessionManager sessionManager;
     public static ConfigManager configManager;
     public static LocationManager locationManager;
+    private static TeamManager teamManager;
 
-    public static void init(JavaPlugin plugin){
+    public static TeamManager getTeamManager() {
+        return teamManager;
+    }
+
+    public static void init(JavaPlugin plugin) {
         ShadowUtils.plugin = plugin;
         plugin.saveConfig();
         logger = new Logger(plugin);
@@ -49,15 +46,16 @@ public class ShadowUtils {
         sessionManager = new SessionManager(plugin, "sessions");
         configManager = new ConfigManager(plugin, "config", "config.json");
         locationManager = new LocationManager(plugin, "locations");
+        teamManager = new TeamManager(plugin);
         RegistryUtils.init();
         HeartbeatUtils.init();
 
-        HeartbeatUtils.getHeartbeat().addFlutter(()->{
+        HeartbeatUtils.getHeartbeat().addFlutter(() -> {
             OccasionManager.flutter();
             return true;
         });
 
-        if(Bukkit.getPluginManager().isPluginEnabled("voicechat")) {
+        if (Bukkit.getPluginManager().isPluginEnabled("voicechat")) {
             BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
             if (service != null) {
                 voiceService = new ShadowVoiceService();
@@ -72,15 +70,15 @@ public class ShadowUtils {
 
     }
 
-    public static ShadowVoiceService getVoiceService(){
+    public static ShadowVoiceService getVoiceService() {
         return voiceService;
     }
 
-    public static JavaPlugin getPlugin(){
+    public static JavaPlugin getPlugin() {
         return plugin;
     }
 
-    public static Logger getLogger(){
+    public static Logger getLogger() {
         return logger;
     }
 
@@ -99,7 +97,6 @@ public class ShadowUtils {
     //Max of 24 hours per sessions, countdown as they get closer (kick them)
 
     public static InputStream downloadFile(String url, String... auth) {
-
 
 
         try {
@@ -124,7 +121,6 @@ public class ShadowUtils {
 //            FileOutputStream out = new FileOutputStream(filename);
 
 
-
             return conn.getInputStream();
 
         } catch (Exception ex) {
@@ -135,7 +131,7 @@ public class ShadowUtils {
         return InputStream.nullInputStream();
     }
 
-    public static void saveStream(InputStream in, FileOutputStream out){
+    public static void saveStream(InputStream in, FileOutputStream out) {
         try {
             int c;
             byte[] b = new byte[1024];
@@ -143,7 +139,7 @@ public class ShadowUtils {
 
             in.close();
             out.close();
-        } catch (IOException ex){
+        } catch (IOException ex) {
             getLogger().log(Logger.LogLevel.ERROR, ex);
         }
     }
