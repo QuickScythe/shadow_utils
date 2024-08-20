@@ -1,12 +1,11 @@
 package me.quickscythe.shadowcore.commands.executors;
 
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.quickscythe.shadowcore.commands.ShadowCommand;
-import me.quickscythe.shadowcore.utils.entity.RegistryUtils;
 import me.quickscythe.shadowcore.utils.entity.CustomEntityRegistry;
+import me.quickscythe.shadowcore.utils.entity.RegistryUtils;
 import net.minecraft.world.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,15 +30,18 @@ public class EntityCommand extends ShadowCommand {
                 })
                 .then(argument("entity", StringArgumentType.greedyString())
                         .suggests((context, builder) -> {
-                            for(Map.Entry<String, CustomEntityRegistry> regs : RegistryUtils.getEntityRegistries().entrySet()){
-                                for(Map.Entry<String, Class<? extends Entity>> reg : regs.getValue().getRegistry().entrySet()){
+                            for (Map.Entry<String, CustomEntityRegistry> regs : RegistryUtils.getEntityRegistries().entrySet()) {
+                                for (Map.Entry<String, Class<? extends Entity>> reg : regs.getValue().getRegistry().entrySet()) {
                                     builder.suggest(regs.getKey() + ":" + reg.getKey());
                                 }
                             }
                             return builder.buildFuture();
                         })
                         .executes(context -> {
-
+                            String data = StringArgumentType.getString(context, "entity");
+                            String namespace = data.split(":")[0];
+                            String entity = data.split(":")[1];
+                            RegistryUtils.getEntityRegistries().get(namespace).spawn(entity, context.getSource().getLocation());
                             return SINGLE_SUCCESS;
                         })).build();
     }
