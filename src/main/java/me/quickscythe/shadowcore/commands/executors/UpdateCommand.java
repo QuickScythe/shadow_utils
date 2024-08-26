@@ -39,7 +39,7 @@ public class UpdateCommand extends ShadowCommand {
 
     public UpdateCommand(JavaPlugin plugin) {
         super(plugin, "update");
-         props = new String[]{(String) ShadowUtils.getConfigManager().getVariable("jenkins_user"), (String) ShadowUtils.getConfigManager().getVariable("jenkins_pass")};
+         props = new String[]{(String) ShadowUtils.getConfigManager().getVariable("jenkins_user"), (String) ShadowUtils.getConfigManager().getVariable("jenkins_password")};
     }
 
     @Override
