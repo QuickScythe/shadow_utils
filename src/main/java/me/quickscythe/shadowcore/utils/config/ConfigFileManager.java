@@ -13,6 +13,7 @@ public class ConfigFileManager {
     private static final Map<String, ConfigFile> FILE_MAP = new HashMap<>();
 
 
+
     /**
      * Gets existing ConfigFile. Does NOT generate new one.
      * @param filename String key file is stored under, does not include file extension.

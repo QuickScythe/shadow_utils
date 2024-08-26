@@ -34,9 +34,12 @@ import static net.kyori.adventure.text.Component.text;
 
 public class UpdateCommand extends ShadowCommand {
 
+    String[] props;
+
 
     public UpdateCommand(JavaPlugin plugin) {
         super(plugin, "update");
+         props = new String[]{(String) ShadowUtils.getConfigManager().getVariable("jenkins_user"), (String) ShadowUtils.getConfigManager().getVariable("jenkins_pass")};
     }
 
     @Override
@@ -55,7 +58,7 @@ public class UpdateCommand extends ShadowCommand {
                                     String url = "https://ci.vanillaflux.com/job/" + plugin + "/lastSuccessfulBuild/artifact/build/libs/" + filename;
                                     //Downloading <plugin> <version>...
                                     ShadowUtils.getLogger().log(Logger.LogLevel.INFO, text("Downloading ", NamedTextColor.YELLOW).append(getStylizedName(plugin, version)).append(text("...", NamedTextColor.YELLOW)), context.getSource().getSender());
-                                    InputStream in = ShadowUtils.downloadFile(url);
+                                    InputStream in = ShadowUtils.downloadFile(url, props[0], props[1]);
                                     if (in != null) {
                                         try {
 
@@ -93,7 +96,7 @@ public class UpdateCommand extends ShadowCommand {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            Document xml = db.parse(ShadowUtils.downloadFile(ShadowUtils.JENKINS_URL + "job/" + plugin + "/lastSuccessfulBuild/" + ShadowUtils.JENKINS_API_ENDPOINT));
+            Document xml = db.parse(ShadowUtils.downloadFile(ShadowUtils.JENKINS_URL + "job/" + plugin + "/lastSuccessfulBuild/" + ShadowUtils.JENKINS_API_ENDPOINT, props[0], props[1]));
             xml.getDocumentElement().normalize();
             NodeList versions = xml.getElementsByTagName("artifact");
             for (int temp = 0; temp < versions.getLength(); temp++) {
@@ -114,7 +117,7 @@ public class UpdateCommand extends ShadowCommand {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document xml = db.parse(ShadowUtils.downloadFile(ShadowUtils.JENKINS_URL + ShadowUtils.JENKINS_API_ENDPOINT));
+            Document xml = db.parse(ShadowUtils.downloadFile(ShadowUtils.JENKINS_URL + ShadowUtils.JENKINS_API_ENDPOINT, props[0], props[1]));
             xml.getDocumentElement().normalize();
             NodeList jobs = xml.getElementsByTagName("job");
             for (int temp = 0; temp < jobs.getLength(); temp++) {
